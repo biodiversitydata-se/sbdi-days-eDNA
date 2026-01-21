@@ -51,3 +51,6 @@ rsconnect/
 # macOS
 .DS_Store
 ._*
+
+/.quarto/
+**/*.quarto_ipynb
