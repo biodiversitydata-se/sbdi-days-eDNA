@@ -8,7 +8,10 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - about.qmd
+      - href: agenda.qmd
+        text: Agenda
+      - href: tutorial.qmd
+        text: Hands-on tutorial
 
 format:
   html:

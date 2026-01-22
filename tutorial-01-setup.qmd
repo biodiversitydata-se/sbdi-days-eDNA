@@ -1,0 +1,27 @@
+---
+title: "1. Get started"
+format:
+  html:
+    toc: false
+---
+
+This step ensures that you can access the workshop environment and that everything is working before starting the analysis.
+
+## Goal
+Access the workshop RStudio environment and verify that you can run R code.
+
+## Workshop environment
+For this workshop, you will work in a **pre-configured RStudio environment** accessed via a web browser.
+No local installation is required.
+
+## Steps
+
+### 1. Log in
+- Open the workshop login link 
+- Sign in using your assigned username and password.
+
+### 2. Check that R is running
+In the **Console** tab in RStudio, run:
+
+```r
+sessionInfo()

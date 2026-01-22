@@ -1,0 +1,17 @@
+---
+title: "Hands-on tutorial"
+format:
+  html:
+    toc: false
+---
+
+This tutorial walks through the main steps needed to integrate ASV portal data in R and explore biodiversity patterns. As an example, we analyse microbial diversity along the Baltic Sea salinity gradient.
+
+## Integrate ASV portal data with the asvoccur R package
+1. [Get started](tutorial-01-setup.qmd) — access the workshop RStudio environment
+2. [xxx](tutorial-02-xxx.qmd) — xxx
+
+## Explore biodiversity patterns across environments in R
+3. yyy — yyy
+4. zzz — zzz
+

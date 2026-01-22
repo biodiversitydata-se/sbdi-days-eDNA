@@ -1,16 +1,79 @@
 [
   {
+    "objectID": "agenda.html",
+    "href": "agenda.html",
+    "title": "Agenda",
+    "section": "",
+    "text": "10 February, 16:00–17:30\n\nIntroduction (10 min)\n\nOverview of SBDI and GBIF\neDNA in SBDI: current tools and workflows\n\nFrom raw reads to ASVs (10 min)\n\nDenoising and taxonomic annotation using nf-core/ampliseq\n\nData sharing and access in SBDI (10 min)\n\nENA guide\nASV portal\nasvoccur\n\nHands-on tutorial: Import and analyse ASV portal data with R (55 min)\n\nIntegrate ASV portal data with the asvoccur R package\nExplore biodiversity patterns across environments in R\n\nWrap-up (5 min)\n\nKey takeaways\nGetting help after the workshop"
+  },
+  {
+    "objectID": "tutorial.html",
+    "href": "tutorial.html",
+    "title": "Hands-on tutorial",
+    "section": "",
+    "text": "This tutorial walks through the main steps needed to integrate ASV portal data in R and explore biodiversity patterns. As an example, we analyse microbial diversity along the Baltic Sea salinity gradient."
+  },
+  {
+    "objectID": "tutorial.html#integrate-asv-portal-data-with-the-asvoccur-r-package",
+    "href": "tutorial.html#integrate-asv-portal-data-with-the-asvoccur-r-package",
+    "title": "Hands-on tutorial",
+    "section": "Integrate ASV portal data with the asvoccur R package",
+    "text": "Integrate ASV portal data with the asvoccur R package\n\nGet started — access the workshop RStudio environment\nxxx — xxx"
+  },
+  {
+    "objectID": "tutorial.html#explore-biodiversity-patterns-across-environments-in-r",
+    "href": "tutorial.html#explore-biodiversity-patterns-across-environments-in-r",
+    "title": "Hands-on tutorial",
+    "section": "Explore biodiversity patterns across environments in R",
+    "text": "Explore biodiversity patterns across environments in R\n\nyyy — yyy\nzzz — zzz"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Exploring eDNA in SBDI",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+    "text": "Welcome to the Exploring eDNA in SBDI workshop at SBDI Days 2026!"
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "About this site"
+    "objectID": "index.html#goal",
+    "href": "index.html#goal",
+    "title": "Get started",
+    "section": "Goal",
+    "text": "Goal\nAccess the workshop RStudio environment and verify that you can run R code."
+  },
+  {
+    "objectID": "index.html#workshop-environment",
+    "href": "index.html#workshop-environment",
+    "title": "Get started",
+    "section": "Workshop environment",
+    "text": "Workshop environment\nFor this workshop, you will work in a pre-configured RStudio environment accessed via a web browser. No local installation is required."
+  },
+  {
+    "objectID": "index.html#steps",
+    "href": "index.html#steps",
+    "title": "Get started",
+    "section": "Steps",
+    "text": "Steps\n\n1. Log in\n\nOpen the workshop login link (provided by the facilitators).\nSign in using your assigned username and password.\n\n\n\n2. Check that R is running\nIn the Console tab in RStudio, run:\n```r sessionInfo()"
+  },
+  {
+    "objectID": "index.html#description",
+    "href": "index.html#description",
+    "title": "Exploring eDNA in SBDI",
+    "section": "Description",
+    "text": "Description\nThis workshop will demonstrate how environmental DNA (eDNA) / metabarcoding data can be accessed, processed, and analyzed within the Swedish Biodiversity Data Infrastructure (SBDI). We will show how to download eDNA data, use our R package to unpack, merge, and aggregate datasets, and then explore biodiversity patterns across environments in R. The session will also introduce SBDI resources for data submission, processing, and integration with GBIF."
+  },
+  {
+    "objectID": "index.html#expected-outcomes",
+    "href": "index.html#expected-outcomes",
+    "title": "Exploring eDNA in SBDI",
+    "section": "Expected outcomes",
+    "text": "Expected outcomes\nParticipants will learn about tools and workflows for eDNA data management and analysis, and how these contribute to open biodiversity knowledge."
+  },
+  {
+    "objectID": "index.html#instructors",
+    "href": "index.html#instructors",
+    "title": "Exploring eDNA in SBDI",
+    "section": "Instructors",
+    "text": "Instructors\n\nProf. Anders Andersson — SBDI & KTH SciLifeLab\nDr. Daniel Lundin — SBDI & Linnaeus University\nDr. Maria Prager — SBDI & University of Gothenburg"
   }
 ]
