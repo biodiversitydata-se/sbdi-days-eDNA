@@ -1,5 +1,5 @@
 ---
-title: "Hands-on tutorial: <br>Import and analyse ASV portal data with R"
+title: "Import and analyse ASV portal data with R"
 format:
   html:
     toc: false
@@ -9,7 +9,7 @@ This tutorial walks through the main steps needed to integrate ASV portal data i
 
 ## Integration of ASV portal data with asvoccur
 1. [Get started](tutorial-01-setup.qmd) — Access the workshop RStudio environment in PDC Cloud
-2. [Prepare data](tutorial-02-prep.qmd) — Load, merge and aggregate data sourced from the ASV portal
+2. [Prepare data](tutorial-02-prep.qmd) — Load, merge and aggregate example data sourced from the ASV portal
 
 ## Exploration of biodiversity patterns across environments
 3. yyy — yyy

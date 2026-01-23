@@ -51,21 +51,21 @@
   {
     "objectID": "tutorial.html",
     "href": "tutorial.html",
-    "title": "Hands-on tutorial: Import and analyse ASV portal data with R",
+    "title": "Import and analyse ASV portal data with R",
     "section": "",
     "text": "This tutorial walks through the main steps needed to integrate ASV portal data in R and explore biodiversity patterns. As an example, we analyse microbial diversity along the Baltic Sea salinity gradient."
   },
   {
     "objectID": "tutorial.html#integration-of-asv-portal-data-with-asvoccur",
     "href": "tutorial.html#integration-of-asv-portal-data-with-asvoccur",
-    "title": "Hands-on tutorial: Import and analyse ASV portal data with R",
+    "title": "Import and analyse ASV portal data with R",
     "section": "Integration of ASV portal data with asvoccur",
     "text": "Integration of ASV portal data with asvoccur\n\nGet started — Access the workshop RStudio environment in PDC Cloud\nPrepare data — Load, merge and aggregate data sourced from the ASV portal"
   },
   {
     "objectID": "tutorial.html#exploration-of-biodiversity-patterns-across-environments",
     "href": "tutorial.html#exploration-of-biodiversity-patterns-across-environments",
-    "title": "Hands-on tutorial: Import and analyse ASV portal data with R",
+    "title": "Import and analyse ASV portal data with R",
     "section": "Exploration of biodiversity patterns across environments",
     "text": "Exploration of biodiversity patterns across environments\n\nyyy — yyy\nzzz — zzz"
   },
@@ -102,6 +102,6 @@
     "href": "agenda.html",
     "title": "Agenda",
     "section": "",
-    "text": "10 February 2026, 16:00–17:30\n\nIntroduction (10 min)\n\nOverview of SBDI and GBIF\neDNA tools and workflows in SBDI\n\nFrom raw reads to ASVs (10 min)\n\nDenoising and taxonomic annotation with nf-core/ampliseq\n\nData sharing and access in SBDI (10 min)\n\nMetabarcoding data submission to ENA\nDiscovery, download, and submission in the ASV portal\nProcessing ASV portal downloads with asvoccur\n\nHands-on tutorial: Import and analyse ASV portal data with R (55 min)\n\nIntegration of ASV portal data with asvoccur\nExploration of biodiversity patterns across environments\n\nWrap-up (5 min)\n\nKey takeaways\nSupport and next steps"
+    "text": "10 February 2026, 16:00–17:30\n\nIntroduction (10 min)\n\nOverview of SBDI and GBIF\neDNA tools and workflows in SBDI\n\nFrom raw reads to ASVs (10 min)\n\nDenoising and taxonomic annotation with nf-core/ampliseq\n\nData sharing and access in SBDI (10 min)\n\nMetabarcoding data submission to ENA\nDiscovery, download, and submission in the ASV portal\nProcessing ASV portal downloads with asvoccur\n\nHands-on tutorial: Import and analyse ASV portal data with R (55 min)\n\nIntegrate ASV portal data with asvoccur\nExplore biodiversity patterns across environments\n\nWrap-up (5 min)\n\nKey takeaways\nSupport and next steps"
   }
 ]
