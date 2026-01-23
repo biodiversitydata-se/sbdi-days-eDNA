@@ -5,24 +5,24 @@ format:
     toc: false
 ---
 
-10 February, 16:00–17:30
+10 February 2026, 16:00–17:30
 
 - **Introduction** (10 min)
   - Overview of SBDI and GBIF
-  - eDNA in SBDI: current tools and workflows
+  - eDNA tools and workflows in SBDI
 
 - **From raw reads to ASVs** (10 min)
-  - Denoising and taxonomic annotation using nf-core/ampliseq
+  - Denoising and taxonomic annotation with nf-core/ampliseq 
 
 - **Data sharing and access in SBDI** (10 min)
-  - ENA guide
-  - ASV portal
-  - asvoccur
+  - Metabarcoding data submission to ENA
+  - Discovery, download, and submission in the ASV portal
+  - Processing ASV portal downloads with asvoccur
 
 - **Hands-on tutorial: Import and analyse ASV portal data with R** (55 min)
-  - Integrate ASV portal data with the asvoccur R package
-  - Explore biodiversity patterns across environments in R
+  - Integration of ASV portal data with asvoccur
+  - Exploration of biodiversity patterns across environments
   
 - **Wrap-up** (5 min)
   - Key takeaways
-  - Getting help after the workshop
+  - Support and next steps

@@ -4,7 +4,7 @@
     "href": "agenda.html",
     "title": "Agenda",
     "section": "",
-    "text": "10 February, 16:00–17:30\n\nIntroduction (10 min)\n\nOverview of SBDI and GBIF\neDNA in SBDI: current tools and workflows\n\nFrom raw reads to ASVs (10 min)\n\nDenoising and taxonomic annotation using nf-core/ampliseq\n\nData sharing and access in SBDI (10 min)\n\nENA guide\nASV portal\nasvoccur\n\nHands-on tutorial: Import and analyse ASV portal data with R (55 min)\n\nIntegrate ASV portal data with the asvoccur R package\nExplore biodiversity patterns across environments in R\n\nWrap-up (5 min)\n\nKey takeaways\nGetting help after the workshop"
+    "text": "10 February 2026, 16:00–17:30\n\nIntroduction (10 min)\n\nOverview of SBDI and GBIF\neDNA tools and workflows in SBDI\n\nFrom raw reads to ASVs (10 min)\n\nDenoising and taxonomic annotation with nf-core/ampliseq\n\nData sharing and access in SBDI (10 min)\n\nMetabarcoding data submission to ENA\nDiscovery, download, and submission in the ASV portal\nProcessing ASV portal downloads with asvoccur\n\nHands-on tutorial: Import and analyse ASV portal data with R (55 min)\n\nIntegration of ASV portal data with asvoccur\nExploration of biodiversity patterns across environments\n\nWrap-up (5 min)\n\nKey takeaways\nSupport and next steps"
   },
   {
     "objectID": "tutorial.html",
@@ -75,5 +75,33 @@
     "title": "Exploring eDNA in SBDI",
     "section": "Instructors",
     "text": "Instructors\n\nProf. Anders Andersson — SBDI & KTH SciLifeLab\nDr. Daniel Lundin — SBDI & Linnaeus University\nDr. Maria Prager — SBDI & University of Gothenburg"
+  },
+  {
+    "objectID": "tutorial-01-setup.html",
+    "href": "tutorial-01-setup.html",
+    "title": "1. Get started",
+    "section": "",
+    "text": "This step ensures that you can access the workshop environment and that everything is working before starting the analysis."
+  },
+  {
+    "objectID": "tutorial-01-setup.html#goal",
+    "href": "tutorial-01-setup.html#goal",
+    "title": "1. Get started",
+    "section": "Goal",
+    "text": "Goal\nAccess the workshop RStudio environment and verify that you can run R code."
+  },
+  {
+    "objectID": "tutorial-01-setup.html#workshop-environment",
+    "href": "tutorial-01-setup.html#workshop-environment",
+    "title": "1. Get started",
+    "section": "Workshop environment",
+    "text": "Workshop environment\nFor this workshop, you will work in a pre-configured RStudio environment accessed via a web browser. No local installation is required."
+  },
+  {
+    "objectID": "tutorial-01-setup.html#steps",
+    "href": "tutorial-01-setup.html#steps",
+    "title": "1. Get started",
+    "section": "Steps",
+    "text": "Steps\n\n1. Log in\n\nOpen the workshop login link\nSign in using your assigned username and password.\n\n\n\n2. Check that R is running\nIn the Console tab in RStudio, run:\n```r sessionInfo()"
   }
 ]
