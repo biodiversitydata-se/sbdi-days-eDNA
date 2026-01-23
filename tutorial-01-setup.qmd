@@ -23,5 +23,6 @@ No local installation is required.
 ### 2. Check that R is running
 In the **Console** tab in RStudio, run:
 
-```r
+```
 sessionInfo()
+```

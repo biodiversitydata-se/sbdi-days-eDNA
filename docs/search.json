@@ -1,82 +1,5 @@
 [
   {
-    "objectID": "agenda.html",
-    "href": "agenda.html",
-    "title": "Agenda",
-    "section": "",
-    "text": "10 February 2026, 16:00–17:30\n\nIntroduction (10 min)\n\nOverview of SBDI and GBIF\neDNA tools and workflows in SBDI\n\nFrom raw reads to ASVs (10 min)\n\nDenoising and taxonomic annotation with nf-core/ampliseq\n\nData sharing and access in SBDI (10 min)\n\nMetabarcoding data submission to ENA\nDiscovery, download, and submission in the ASV portal\nProcessing ASV portal downloads with asvoccur\n\nHands-on tutorial: Import and analyse ASV portal data with R (55 min)\n\nIntegration of ASV portal data with asvoccur\nExploration of biodiversity patterns across environments\n\nWrap-up (5 min)\n\nKey takeaways\nSupport and next steps"
-  },
-  {
-    "objectID": "tutorial.html",
-    "href": "tutorial.html",
-    "title": "Hands-on tutorial",
-    "section": "",
-    "text": "This tutorial walks through the main steps needed to integrate ASV portal data in R and explore biodiversity patterns. As an example, we analyse microbial diversity along the Baltic Sea salinity gradient."
-  },
-  {
-    "objectID": "tutorial.html#integrate-asv-portal-data-with-the-asvoccur-r-package",
-    "href": "tutorial.html#integrate-asv-portal-data-with-the-asvoccur-r-package",
-    "title": "Hands-on tutorial",
-    "section": "Integrate ASV portal data with the asvoccur R package",
-    "text": "Integrate ASV portal data with the asvoccur R package\n\nGet started — access the workshop RStudio environment\nxxx — xxx"
-  },
-  {
-    "objectID": "tutorial.html#explore-biodiversity-patterns-across-environments-in-r",
-    "href": "tutorial.html#explore-biodiversity-patterns-across-environments-in-r",
-    "title": "Hands-on tutorial",
-    "section": "Explore biodiversity patterns across environments in R",
-    "text": "Explore biodiversity patterns across environments in R\n\nyyy — yyy\nzzz — zzz"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Exploring eDNA in SBDI",
-    "section": "",
-    "text": "Welcome to the Exploring eDNA in SBDI workshop at SBDI Days 2026!"
-  },
-  {
-    "objectID": "index.html#goal",
-    "href": "index.html#goal",
-    "title": "Get started",
-    "section": "Goal",
-    "text": "Goal\nAccess the workshop RStudio environment and verify that you can run R code."
-  },
-  {
-    "objectID": "index.html#workshop-environment",
-    "href": "index.html#workshop-environment",
-    "title": "Get started",
-    "section": "Workshop environment",
-    "text": "Workshop environment\nFor this workshop, you will work in a pre-configured RStudio environment accessed via a web browser. No local installation is required."
-  },
-  {
-    "objectID": "index.html#steps",
-    "href": "index.html#steps",
-    "title": "Get started",
-    "section": "Steps",
-    "text": "Steps\n\n1. Log in\n\nOpen the workshop login link (provided by the facilitators).\nSign in using your assigned username and password.\n\n\n\n2. Check that R is running\nIn the Console tab in RStudio, run:\n```r sessionInfo()"
-  },
-  {
-    "objectID": "index.html#description",
-    "href": "index.html#description",
-    "title": "Exploring eDNA in SBDI",
-    "section": "Description",
-    "text": "Description\nThis workshop will demonstrate how environmental DNA (eDNA) / metabarcoding data can be accessed, processed, and analyzed within the Swedish Biodiversity Data Infrastructure (SBDI). We will show how to download eDNA data, use our R package to unpack, merge, and aggregate datasets, and then explore biodiversity patterns across environments in R. The session will also introduce SBDI resources for data submission, processing, and integration with GBIF."
-  },
-  {
-    "objectID": "index.html#expected-outcomes",
-    "href": "index.html#expected-outcomes",
-    "title": "Exploring eDNA in SBDI",
-    "section": "Expected outcomes",
-    "text": "Expected outcomes\nParticipants will learn about tools and workflows for eDNA data management and analysis, and how these contribute to open biodiversity knowledge."
-  },
-  {
-    "objectID": "index.html#instructors",
-    "href": "index.html#instructors",
-    "title": "Exploring eDNA in SBDI",
-    "section": "Instructors",
-    "text": "Instructors\n\nProf. Anders Andersson — SBDI & KTH SciLifeLab\nDr. Daniel Lundin — SBDI & Linnaeus University\nDr. Maria Prager — SBDI & University of Gothenburg"
-  },
-  {
     "objectID": "tutorial-01-setup.html",
     "href": "tutorial-01-setup.html",
     "title": "1. Get started",
@@ -102,6 +25,83 @@
     "href": "tutorial-01-setup.html#steps",
     "title": "1. Get started",
     "section": "Steps",
-    "text": "Steps\n\n1. Log in\n\nOpen the workshop login link\nSign in using your assigned username and password.\n\n\n\n2. Check that R is running\nIn the Console tab in RStudio, run:\n```r sessionInfo()"
+    "text": "Steps\n\n1. Log in\n\nOpen the workshop login link\nSign in using your assigned username and password.\n\n\n\n2. Check that R is running\nIn the Console tab in RStudio, run:\nsessionInfo()"
+  },
+  {
+    "objectID": "tutorial-02-prep.html",
+    "href": "tutorial-02-prep.html",
+    "title": "2. Prepare data",
+    "section": "",
+    "text": "Load, merge and aggregate data sourced from the ASV portal"
+  },
+  {
+    "objectID": "tutorial-02-prep.html#goal",
+    "href": "tutorial-02-prep.html#goal",
+    "title": "2. Prepare data",
+    "section": "Goal",
+    "text": "Goal\nxxx"
+  },
+  {
+    "objectID": "tutorial-02-prep.html#steps",
+    "href": "tutorial-02-prep.html#steps",
+    "title": "2. Prepare data",
+    "section": "Steps",
+    "text": "Steps\n\n1.Load\nxxx\n\n\n2. Merge\nxxx\n\n\n2. Agggregate\nxxx"
+  },
+  {
+    "objectID": "tutorial.html",
+    "href": "tutorial.html",
+    "title": "Hands-on tutorial: Import and analyse ASV portal data with R",
+    "section": "",
+    "text": "This tutorial walks through the main steps needed to integrate ASV portal data in R and explore biodiversity patterns. As an example, we analyse microbial diversity along the Baltic Sea salinity gradient."
+  },
+  {
+    "objectID": "tutorial.html#integration-of-asv-portal-data-with-asvoccur",
+    "href": "tutorial.html#integration-of-asv-portal-data-with-asvoccur",
+    "title": "Hands-on tutorial: Import and analyse ASV portal data with R",
+    "section": "Integration of ASV portal data with asvoccur",
+    "text": "Integration of ASV portal data with asvoccur\n\nGet started — Access the workshop RStudio environment in PDC Cloud\nPrepare data — Load, merge and aggregate data sourced from the ASV portal"
+  },
+  {
+    "objectID": "tutorial.html#exploration-of-biodiversity-patterns-across-environments",
+    "href": "tutorial.html#exploration-of-biodiversity-patterns-across-environments",
+    "title": "Hands-on tutorial: Import and analyse ASV portal data with R",
+    "section": "Exploration of biodiversity patterns across environments",
+    "text": "Exploration of biodiversity patterns across environments\n\nyyy — yyy\nzzz — zzz"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Exploring eDNA in SBDI",
+    "section": "",
+    "text": "Welcome to the Exploring eDNA in SBDI workshop at SBDI Days 2026!"
+  },
+  {
+    "objectID": "index.html#description",
+    "href": "index.html#description",
+    "title": "Exploring eDNA in SBDI",
+    "section": "Description",
+    "text": "Description\nThis workshop will demonstrate how environmental DNA (eDNA) / metabarcoding data can be accessed, processed, and analyzed within the Swedish Biodiversity Data Infrastructure (SBDI). We will show how to download eDNA data, use our R package to unpack, merge, and aggregate datasets, and then explore biodiversity patterns across environments in R. The session will also introduce SBDI resources for data submission, processing, and integration with GBIF."
+  },
+  {
+    "objectID": "index.html#expected-outcomes",
+    "href": "index.html#expected-outcomes",
+    "title": "Exploring eDNA in SBDI",
+    "section": "Expected outcomes",
+    "text": "Expected outcomes\nParticipants will learn about tools and workflows for eDNA data management and analysis, and how these contribute to open biodiversity knowledge."
+  },
+  {
+    "objectID": "index.html#instructors",
+    "href": "index.html#instructors",
+    "title": "Exploring eDNA in SBDI",
+    "section": "Instructors",
+    "text": "Instructors\n\nProf. Anders Andersson — SBDI & KTH SciLifeLab\nDr. Daniel Lundin — SBDI & Linnaeus University\nDr. Maria Prager — SBDI & University of Gothenburg"
+  },
+  {
+    "objectID": "agenda.html",
+    "href": "agenda.html",
+    "title": "Agenda",
+    "section": "",
+    "text": "10 February 2026, 16:00–17:30\n\nIntroduction (10 min)\n\nOverview of SBDI and GBIF\neDNA tools and workflows in SBDI\n\nFrom raw reads to ASVs (10 min)\n\nDenoising and taxonomic annotation with nf-core/ampliseq\n\nData sharing and access in SBDI (10 min)\n\nMetabarcoding data submission to ENA\nDiscovery, download, and submission in the ASV portal\nProcessing ASV portal downloads with asvoccur\n\nHands-on tutorial: Import and analyse ASV portal data with R (55 min)\n\nIntegration of ASV portal data with asvoccur\nExploration of biodiversity patterns across environments\n\nWrap-up (5 min)\n\nKey takeaways\nSupport and next steps"
   }
 ]
