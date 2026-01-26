@@ -60,7 +60,7 @@
     "href": "tutorial.html#integration-of-asv-portal-data-with-asvoccur",
     "title": "Import and analyse ASV portal data with R",
     "section": "Integration of ASV portal data with asvoccur",
-    "text": "Integration of ASV portal data with asvoccur\n\nGet started — Access the workshop RStudio environment in PDC Cloud\nPrepare data — Load, merge and aggregate data sourced from the ASV portal"
+    "text": "Integration of ASV portal data with asvoccur\n\nGet started — Access the workshop RStudio environment in PDC Cloud\nPrepare data — Unpack, merge and aggregate example data sourced from the ASV portal"
   },
   {
     "objectID": "tutorial.html#exploration-of-biodiversity-patterns-across-environments",

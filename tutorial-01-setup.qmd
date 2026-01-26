@@ -8,7 +8,7 @@ format:
 This step ensures that you can access the workshop environment and that everything is working before starting the analysis.
 
 ## Goal
-Access the workshop RStudio environment and verify that you can run R code.
+Access the workshop RStudio environment and verify that you have the required packages.
 
 ## Workshop environment
 For this workshop, you will work in a **pre-configured RStudio environment** accessed via a web browser.
