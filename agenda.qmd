@@ -9,7 +9,7 @@ format:
 
 - **Introduction** (10 min)
   - Overview of SBDI and GBIF
-  - eDNA tools and workflows in SBDI
+  - eDNA tools and workflows in SBDI<br><br>
 
 - **From raw reads to ASVs** (10 min)
   - Denoising and taxonomic annotation with nf-core/ampliseq<br><br>
