@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>1. Get started – Exploring eDNA in SBDI</title>
+<title>1. Set up the environment – Exploring eDNA in SBDI</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -121,7 +156,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">1. Get started</h1>
+<h1 class="title">1. Set up the environment</h1>
 </div>
 
 
@@ -138,31 +173,42 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This step ensures that you can access the workshop environment and that everything is working before starting the analysis.</p>
-<section id="goal" class="level2">
-<h2 class="anchored" data-anchor-id="goal">Goal</h2>
-<p>Access the workshop RStudio environment and verify that you can run R code.</p>
+<p>This tutorial is designed to run in a pre-configured cloud environment, with a local setup available as a fallback.</p>
+<section id="option-a-recommended-workshop-rstudio-environment" class="level2">
+<h2 class="anchored" data-anchor-id="option-a-recommended-workshop-rstudio-environment">Option A (recommended): Workshop RStudio environment</h2>
+<p>A virtual machine running RStudio Server is available in PDC Cloud. Log in using the credentials provided during the workshop:</p>
+<p><a href="http://xxx.xx.xxx.xxx:8787" target="_blank">RStudio Server</a></p>
+<section id="check-required-packages" class="level3">
+<h3 class="anchored" data-anchor-id="check-required-packages">Check required packages</h3>
+<p>Load <code>asvoccur</code> and confirm version:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(asvoccur)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">packageVersion</span>(<span class="st">"asvoccur"</span>)  <span class="co"># Should say 1.1.1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="workshop-environment" class="level2">
-<h2 class="anchored" data-anchor-id="workshop-environment">Workshop environment</h2>
-<p>For this workshop, you will work in a <strong>pre-configured RStudio environment</strong> accessed via a web browser. No local installation is required.</p>
+<section id="check-access-to-example-data" class="level3">
+<h3 class="anchored" data-anchor-id="check-access-to-example-data">Check access to example data</h3>
+<p>Example ASV portal data is available in a shared directory on the virtual machine. Check access:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data_path <span class="ot">&lt;-</span> <span class="st">"/srv/course-data"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(data_path)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If three zip files are listed, you are ready to proceed.</p>
 </section>
-<section id="steps" class="level2">
-<h2 class="anchored" data-anchor-id="steps">Steps</h2>
-<section id="log-in" class="level3">
-<h3 class="anchored" data-anchor-id="log-in">1. Log in</h3>
-<ul>
-<li>Open the workshop login link</li>
-<li>Sign in using your assigned username and password.</li>
-</ul>
 </section>
-<section id="check-that-r-is-running" class="level3">
-<h3 class="anchored" data-anchor-id="check-that-r-is-running">2. Check that R is running</h3>
-<p>In the <strong>Console</strong> tab in RStudio, run:</p>
-<pre><code>sessionInfo()</code></pre>
+<section id="option-b-fallback-run-rstudio-locally-on-your-laptop" class="level2">
+<h2 class="anchored" data-anchor-id="option-b-fallback-run-rstudio-locally-on-your-laptop">Option B (fallback): Run RStudio locally on your laptop</h2>
+<p>Our cloud environment is being tested for the first time. If needed, you can run the tutorial locally.</p>
+<p>You will need to install:</p>
+<ol type="1">
+<li><a href="https://cran.r-project.org/" target="_blank">R</a><br></li>
+<li><a href="https://posit.co/download/rstudio-desktop/" target="_blank">RStudio</a></li>
+<li>the <code>remotes</code> and <code>asvoccur</code> R packages</li>
+</ol>
+<p>To install the required R packages:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">'remotes'</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"biodiversitydata-se/asvoccur"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(asvoccur)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">packageVersion</span>(<span class="st">"asvoccur"</span>)  <span class="co"># Should say 1.1.1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>In this option, example data is accessed via a shared Google Drive folder.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

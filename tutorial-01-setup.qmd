@@ -1,28 +1,57 @@
 ---
-title: "1. Get started"
+title: "1. Set up the environment"
 format:
   html:
     toc: false
 ---
 
-This step ensures that you can access the workshop environment and that everything is working before starting the analysis.
+This tutorial is designed to run in a pre-configured cloud environment, with a local setup available as a fallback.
 
-## Goal
-Access the workshop RStudio environment and verify that you have the required packages.
+## Option A (recommended): Workshop RStudio environment
 
-## Workshop environment
-For this workshop, you will work in a **pre-configured RStudio environment** accessed via a web browser.
-No local installation is required.
+A virtual machine running RStudio Server is available in PDC Cloud.
+Log in using the credentials provided during the workshop:
 
-## Steps
+[RStudio Server](http://xxx.xx.xxx.xxx:8787){target="_blank"}
 
-### 1. Log in
-- Open the workshop login link 
-- Sign in using your assigned username and password.
+### Check required packages
 
-### 2. Check that R is running
-In the **Console** tab in RStudio, run:
+Load `asvoccur` and confirm version:
 
+```r
+library(asvoccur)
+packageVersion("asvoccur")  # Should say 1.1.1
 ```
-sessionInfo()
+
+### Check access to example data
+
+Example ASV portal data is available in a shared directory on the virtual machine. Check access:
+
+```r
+data_path <- "/srv/course-data"
+list.files(data_path)
 ```
+
+If three zip files are listed, you are ready to proceed.
+
+## Option B (fallback): Run RStudio locally on your laptop
+
+Our cloud environment is being tested for the first time. If needed, you can run the tutorial locally.
+
+You will need to install:
+
+1. [R](https://cran.r-project.org/){target="_blank"}<br>
+2. [RStudio](https://posit.co/download/rstudio-desktop/){target="_blank"}
+3. the `remotes` and `asvoccur` R packages
+
+To install the required R packages:
+
+```r
+install.packages('remotes')
+remotes::install_github("biodiversitydata-se/asvoccur")
+library(asvoccur)
+packageVersion("asvoccur")  # Should say 1.1.1
+```
+
+In this option, example data is accessed via a shared Google Drive folder.
+

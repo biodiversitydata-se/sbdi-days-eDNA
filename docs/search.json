@@ -2,9 +2,9 @@
   {
     "objectID": "tutorial-01-setup.html",
     "href": "tutorial-01-setup.html",
-    "title": "1. Get started",
+    "title": "1. Set up the environment",
     "section": "",
-    "text": "This step ensures that you can access the workshop environment and that everything is working before starting the analysis."
+    "text": "This tutorial is designed to run in a pre-configured cloud environment, with a local setup available as a fallback."
   },
   {
     "objectID": "tutorial-01-setup.html#goal",
@@ -109,6 +109,20 @@
     "href": "tutorial.html#getting-started",
     "title": "Import and analyse ASV portal data with R",
     "section": "Getting started",
-    "text": "Getting started\n\nSet up environment — Access the workshop RStudio environment (or run locally)"
+    "text": "Getting started\n\nSet up the environment — Access the workshop RStudio environment (or run locally)"
+  },
+  {
+    "objectID": "tutorial-01-setup.html#option-a-recommended-workshop-rstudio-environment",
+    "href": "tutorial-01-setup.html#option-a-recommended-workshop-rstudio-environment",
+    "title": "1. Set up the environment",
+    "section": "Option A (recommended): Workshop RStudio environment",
+    "text": "Option A (recommended): Workshop RStudio environment\nA virtual machine running RStudio Server is available in PDC Cloud. Log in using the credentials provided during the workshop:\nRStudio Server\n\nCheck required packages\nLoad asvoccur and confirm version:\nlibrary(asvoccur)\npackageVersion(\"asvoccur\")  # Should say 1.1.1\n\n\nCheck access to example data\nExample ASV portal data is available in a shared directory on the virtual machine. Check access:\ndata_path &lt;- \"/srv/course-data\"\nlist.files(data_path)\nIf three zip files are listed, you are ready to proceed."
+  },
+  {
+    "objectID": "tutorial-01-setup.html#option-b-fallback-run-rstudio-locally-on-your-laptop",
+    "href": "tutorial-01-setup.html#option-b-fallback-run-rstudio-locally-on-your-laptop",
+    "title": "1. Set up the environment",
+    "section": "Option B (fallback): Run RStudio locally on your laptop",
+    "text": "Option B (fallback): Run RStudio locally on your laptop\nOur cloud environment is being tested for the first time. If needed, you can run the tutorial locally.\nYou will need to install:\n\nR\nRStudio\nthe remotes and asvoccur R packages\n\nTo install the required R packages:\ninstall.packages('remotes')\nremotes::install_github(\"biodiversitydata-se/asvoccur\")\nlibrary(asvoccur)\npackageVersion(\"asvoccur\")  # Should say 1.1.1\nIn this option, example data is accessed via a shared Google Drive folder."
   }
 ]
