@@ -5,7 +5,8 @@ format:
     toc: false
 ---
 
-10 February 2026, 16:00–17:30
+10 February 2026, 16:00–17:30<br>
+William-Olsson lecture hall, Geoscience building, Stockholm University
 
 - **Introduction** (10 min)
   - Overview of SBDI and GBIF

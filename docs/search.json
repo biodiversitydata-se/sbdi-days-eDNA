@@ -102,6 +102,6 @@
     "href": "agenda.html",
     "title": "Agenda",
     "section": "",
-    "text": "10 February 2026, 16:00–17:30\n\nIntroduction (10 min)\n\nOverview of SBDI and GBIF\neDNA tools and workflows in SBDI\n\nFrom raw reads to ASVs (10 min)\n\nDenoising and taxonomic annotation with nf-core/ampliseq\n\nData sharing and access in SBDI (10 min)\n\nMetabarcoding data submission to ENA\nDiscovery, download, and submission in the ASV portal\nProcessing ASV portal downloads with asvoccur\n\nHands-on tutorial: Import and analyse ASV portal data with R (55 min)\n\nIntegrate ASV portal data with asvoccur\nExplore biodiversity patterns across environments\n\nWrap-up (5 min)\n\nKey takeaways\nSupport and next steps"
+    "text": "10 February 2026, 16:00–17:30 William-Olsson lecture hall, Geoscience building, Stockholm University\n\nIntroduction (10 min)\n\nOverview of SBDI and GBIF\neDNA tools and workflows in SBDI\n\nFrom raw reads to ASVs (10 min)\n\nDenoising and taxonomic annotation with nf-core/ampliseq\n\nData sharing and access in SBDI (10 min)\n\nMetabarcoding data submission to ENA\nDiscovery, download, and submission in the ASV portal\nProcessing ASV portal downloads with asvoccur\n\nHands-on tutorial: Import and analyse ASV portal data with R (55 min)\n\nIntegrate ASV portal data with asvoccur\nExplore biodiversity patterns across environments\n\nWrap-up (5 min)\n\nKey takeaways\nSupport and next steps"
   }
 ]
