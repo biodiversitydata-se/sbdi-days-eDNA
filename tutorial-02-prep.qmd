@@ -45,9 +45,9 @@ The `merged` object has the same overall structure as `loaded`, but now contains
 
 ---
 
-### Convert merged data to data frames (optional)
+### Convert merged data to data frames
 
-For some analyses, it is convenient to work with regular data frames instead of sparse matrices. We can convert the merged object as follows:
+For some analyses, it is convenient to work with regular data frames instead of sparse matrices. Note that converting large count matrices to data frames can be very memory-intensive, but should be feasible for the datasets used here:
 
 ```r
 merged_df <- convert_to_df(merged, convert_counts = TRUE, max_cells = 1e9)

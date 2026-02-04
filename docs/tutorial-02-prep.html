@@ -198,9 +198,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The <code>merged</code> object has the same overall structure as <code>loaded</code>, but now contains a single combined version of each matrix or table (<code>counts</code>, <code>events</code>, <code>asvs</code>, <code>emof</code>).</p>
 <hr>
 </section>
-<section id="convert-merged-data-to-data-frames-optional" class="level3">
-<h3 class="anchored" data-anchor-id="convert-merged-data-to-data-frames-optional">Convert merged data to data frames (optional)</h3>
-<p>For some analyses, it is convenient to work with regular data frames instead of sparse matrices. We can convert the merged object as follows:</p>
+<section id="convert-merged-data-to-data-frames" class="level3">
+<h3 class="anchored" data-anchor-id="convert-merged-data-to-data-frames">Convert merged data to data frames</h3>
+<p>For some analyses, it is convenient to work with regular data frames instead of sparse matrices. Note that converting large count matrices to data frames can be very memory-intensive, but should be feasible for the datasets used here:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>merged_df <span class="ot">&lt;-</span> <span class="fu">convert_to_df</span>(merged, <span class="at">convert_counts =</span> <span class="cn">TRUE</span>, <span class="at">max_cells =</span> <span class="fl">1e9</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>In <code>merged_df$counts</code>, each row corresponds to an ASV and each column to a sample. To inspect the sample names:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(merged_df<span class="sc">$</span>counts)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
