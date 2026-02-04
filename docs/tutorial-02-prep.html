@@ -178,7 +178,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="load-the-datasets">Load the datasets</h3>
 <p>Load the two 16S datasets using the <code>data_path</code> object defined in the <a href="./tutorial-01-setup.html">previous section</a>:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>loaded <span class="ot">&lt;-</span> <span class="fu">load_data</span>(data_path)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This reads all datasets into the <code>loaded</code> object, which you can inspect using the magnifying glass in the Environment pane. The object is list organised into sub-lists by data type, each containing one table or matrix element per dataset:</p>
+<p>This reads all datasets into the <code>loaded</code> object, which you can inspect using the magnifying glass in the Environment pane. The object is a list organised into sub-lists by data type, each containing one table or matrix element per dataset:</p>
 <ul>
 <li><code>counts</code>: ASV read counts</li>
 <li><code>asvs</code>: ASV sequences and taxonomic annotations</li>

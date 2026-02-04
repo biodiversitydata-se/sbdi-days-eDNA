@@ -15,7 +15,7 @@ Load the two 16S datasets using the `data_path` object defined in the [previous 
 loaded <- load_data(data_path)
 ```
 
-This reads all datasets into the `loaded` object, which you can inspect using the magnifying glass in the Environment pane. The object is list organised into sub-lists by data type, each containing one table or matrix element per dataset:
+This reads all datasets into the `loaded` object, which you can inspect using the magnifying glass in the Environment pane. The object is a list organised into sub-lists by data type, each containing one table or matrix element per dataset:
 
 - `counts`: ASV read counts
 - `asvs`: ASV sequences and taxonomic annotations
