@@ -5,19 +5,106 @@ format:
     toc: false
 ---
 
-Load, merge and aggregate data sourced from the ASV portal
+In this section we load ASV portal data into R, merge datasets, and prepare count tables for downstream analyses.
 
 ## Goal
-xxx
+Load, merge and aggregate ASV portal data into a format suitable for ecological analyses.
 
 ## Steps
 
-### 1.Load
-xxx
+### Load the datasets
 
-### 2. Merge
-xxx
+First, specify the path to the downloaded ASV portal data:
 
-### 2. Agggregate
-xxx
+```r
+data_path <- "~/bas_sbdi/sbdi/asvportal_data_downloads/20260202_16S_KTH_BalticSea"
+```
 
+Then load the data:
+
+```r
+loaded <- load_data(data_path)
+```
+
+This loads all datasets located in the specified folder into the `loaded` object.
+
+The `loaded` object is a list containing several tables for each dataset, including:
+
+- `counts`: ASV read counts (stored as sparse matrices)
+- `events`: sample-level contextual data
+- `asvs`: ASV sequences and taxonomic annotations
+- `emof`: extended measurement or fact data (environmental parameters)
+
+At this stage, each dataset is kept separate.
+
+---
+
+### Merge the datasets
+
+Next, we merge the datasets in order to analyse them jointly:
+
+```r
+merged <- merge_data(loaded)
+```
+
+The `merged` object has the same overall structure as `loaded`, but now contains a single combined version of each table (`counts`, `events`, `asvs`, `emof`).
+
+To reduce memory usage, ASV count tables in both `loaded$counts` and `merged$counts` are stored as sparse matrices.
+
+---
+
+### Convert merged data to data frames (optional)
+
+For some analyses, it is convenient to work with regular data frames instead of sparse matrices. We can convert the merged object as follows:
+
+```r
+merged_df <- convert_to_df(merged, convert_counts = TRUE, max_cells = 1e9)
+```
+
+In `merged_df$counts`, each row corresponds to an ASV and each column to a sample. To inspect the sample names:
+
+```r
+colnames(merged_df$counts)
+```
+
+When converting, ASVs shared across datasets are merged using SBDI ASV IDs. These IDs correspond to MD5 hashes of the sequences, meaning that ASVs with identical sequences are represented only once.
+
+---
+
+### Aggregate counts by taxonomy
+
+We now aggregate ASV read counts at different taxonomic levels based on the taxonomic annotation:
+
+```r
+cladecounts <- sum_by_clade(merged$counts, merged$asvs)
+```
+
+This produces aggregated counts at the following levels:
+
+- kingdom (or domain)
+- phylum
+- class
+- order
+- family
+- genus
+- species
+- otu (if available)
+
+We convert the result to data frame format:
+
+```r
+cladecounts_df <- convert_to_df(cladecounts)
+```
+
+Both raw counts and normalised counts (relative abundances) are available. For example:
+
+```r
+cladecounts_df$raw$phylum     # raw counts at phylum level
+cladecounts_df$norm$species  # relative abundances at species level
+```
+
+At this point, the data are ready for exploration and analysis.
+
+---
+
+[← Previous](tutorial-01-setup.qmd) · [Overview](index.qmd) · [Next →](tutorial-03-map.qmd)
