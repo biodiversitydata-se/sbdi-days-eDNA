@@ -17,7 +17,7 @@ William-Olsson lecture hall, Geoscience building, Stockholm University
 
 - **Data sharing and access in SBDI** (10 min)
   - Metabarcoding data submission to ENA
-  - Discovery, download, and submission in the ASV portal
+  - Submission, discovery and download in the ASV portal
   - Processing ASV portal downloads with asvoccur<br><br>
 
 - **Hands-on tutorial: Import and analyse ASV portal data with R** (55 min)
