@@ -16,3 +16,11 @@ This tutorial walks through the main steps needed to integrate ASV portal data i
 7. [Analyse 18S data](tutorial-07-18S.qmd) — Genus-level Bray–Curtis and PCoA on 18S data
 
 [Get started →](tutorial-01-setup.qmd)
+
+---
+
+**References**
+
+Hu, Y.O.O., Karlson, B., Charvet, S., Andersson, A.F. (2016). *Diversity of pico- to mesoplankton along the 2000 km salinity gradient of the Baltic Sea*. Frontiers in Microbiology, 7:679: [16S rRNA](https://collections.biodiversitydata.se/public/showDataResource/dr632){target="_blank"}, [18S rDNA](https://collections.biodiversitydata.se/public/showDataResource/dr963){target="_blank"}
+
+Latz, M.A.C., Andersson, A., Brugel, S., Hedblom, M., Jurdzinski, K., Karlson, B., Lindh, M., Lycken, J., Torstenson, A., Andersson, A.F. (2024). *A comprehensive dataset on spatiotemporal variation of microbial plankton communities in the Baltic Sea*. Scientific Data, 11:18: [16S rRNA](https://collections.biodiversitydata.se/public/showDataResource/dr975){target="_blank"}, [18S rDNA](https://collections.biodiversitydata.se/public/showDataResource/dr974){target="_blank"}

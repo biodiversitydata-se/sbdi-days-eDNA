@@ -176,10 +176,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><em>Load, merge and aggregate ASV portal data into a format suitable for downstream ecological analyses.</em></p>
 <section id="load-the-datasets" class="level3">
 <h3 class="anchored" data-anchor-id="load-the-datasets">Load the datasets</h3>
-<p>First, specify the path to the downloaded ASV portal data:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>data_path <span class="ot">&lt;-</span> <span class="st">"~/bas_sbdi/sbdi/asvportal_data_downloads/20260202_16S_KTH_BalticSea"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Then load the data:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>loaded <span class="ot">&lt;-</span> <span class="fu">load_data</span>(data_path)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Load our two 16S datasets, using the <code>data_path</code> object defined in the <a href="./tutorial-01-setup.html">previous section</a>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>loaded <span class="ot">&lt;-</span> <span class="fu">load_data</span>(data_path)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>This loads all datasets located in the specified folder into the <code>loaded</code> object.</p>
 <p>The <code>loaded</code> object is a list containing several tables for each dataset, including:</p>
 <ul>
@@ -194,7 +192,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="merge-the-datasets" class="level3">
 <h3 class="anchored" data-anchor-id="merge-the-datasets">Merge the datasets</h3>
 <p>Next, we merge the datasets in order to analyse them jointly:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>merged <span class="ot">&lt;-</span> <span class="fu">merge_data</span>(loaded)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>merged <span class="ot">&lt;-</span> <span class="fu">merge_data</span>(loaded)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The <code>merged</code> object has the same overall structure as <code>loaded</code>, but now contains a single combined version of each table (<code>counts</code>, <code>events</code>, <code>asvs</code>, <code>emof</code>).</p>
 <p>To reduce memory usage, ASV count tables in both <code>loaded$counts</code> and <code>merged$counts</code> are stored as sparse matrices.</p>
 <hr>
@@ -202,16 +200,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="convert-merged-data-to-data-frames-optional" class="level3">
 <h3 class="anchored" data-anchor-id="convert-merged-data-to-data-frames-optional">Convert merged data to data frames (optional)</h3>
 <p>For some analyses, it is convenient to work with regular data frames instead of sparse matrices. We can convert the merged object as follows:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>merged_df <span class="ot">&lt;-</span> <span class="fu">convert_to_df</span>(merged, <span class="at">convert_counts =</span> <span class="cn">TRUE</span>, <span class="at">max_cells =</span> <span class="fl">1e9</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>merged_df <span class="ot">&lt;-</span> <span class="fu">convert_to_df</span>(merged, <span class="at">convert_counts =</span> <span class="cn">TRUE</span>, <span class="at">max_cells =</span> <span class="fl">1e9</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>In <code>merged_df$counts</code>, each row corresponds to an ASV and each column to a sample. To inspect the sample names:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(merged_df<span class="sc">$</span>counts)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(merged_df<span class="sc">$</span>counts)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>When converting, ASVs shared across datasets are merged using SBDI ASV IDs. These IDs correspond to MD5 hashes of the sequences, meaning that ASVs with identical sequences are represented only once.</p>
 <hr>
 </section>
 <section id="aggregate-counts-by-taxonomy" class="level3">
 <h3 class="anchored" data-anchor-id="aggregate-counts-by-taxonomy">Aggregate counts by taxonomy</h3>
 <p>We now aggregate ASV read counts at different taxonomic levels based on the taxonomic annotation:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>cladecounts <span class="ot">&lt;-</span> <span class="fu">sum_by_clade</span>(merged<span class="sc">$</span>counts, merged<span class="sc">$</span>asvs)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>cladecounts <span class="ot">&lt;-</span> <span class="fu">sum_by_clade</span>(merged<span class="sc">$</span>counts, merged<span class="sc">$</span>asvs)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>This produces aggregated counts at the following levels:</p>
 <ul>
 <li>kingdom (or domain)</li>
@@ -224,10 +222,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>otu (if available)</li>
 </ul>
 <p>We convert the result to data frame format:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>cladecounts_df <span class="ot">&lt;-</span> <span class="fu">convert_to_df</span>(cladecounts)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>cladecounts_df <span class="ot">&lt;-</span> <span class="fu">convert_to_df</span>(cladecounts)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Both raw counts and normalised counts (relative abundances) are available. For example:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>cladecounts_df<span class="sc">$</span>raw<span class="sc">$</span>phylum     <span class="co"># raw counts at phylum level</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>cladecounts_df<span class="sc">$</span>norm<span class="sc">$</span>species  <span class="co"># relative abundances at species level</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>cladecounts_df<span class="sc">$</span>raw<span class="sc">$</span>phylum     <span class="co"># raw counts at phylum level</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>cladecounts_df<span class="sc">$</span>norm<span class="sc">$</span>species  <span class="co"># relative abundances at species level</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>At this point, the data are ready for exploration and analysis.</p>
 <hr>
 <p><a href="./tutorial-01-setup.html">← Previous</a> · <a href="./tutorial.html">Overview</a> · <a href="./tutorial-03-map.html">Next →</a></p>

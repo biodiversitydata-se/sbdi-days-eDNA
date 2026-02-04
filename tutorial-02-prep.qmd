@@ -9,13 +9,7 @@ format:
 
 ### Load the datasets
 
-First, specify the path to the downloaded ASV portal data:
-
-```r
-data_path <- "~/bas_sbdi/sbdi/asvportal_data_downloads/20260202_16S_KTH_BalticSea"
-```
-
-Then load the data:
+Load our two 16S datasets, using the `data_path` object defined in the [previous section](tutorial-01-setup.qmd).
 
 ```r
 loaded <- load_data(data_path)
