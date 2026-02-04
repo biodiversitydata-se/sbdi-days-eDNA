@@ -1,0 +1,86 @@
+---
+title: "4. Community structure (PCoA)"
+format:
+  html:
+    toc: false
+---
+
+In this section we analyse community composition using Bray–Curtis distances and visualise sample relationships with a Principal Coordinates Analysis (PCoA).
+
+## Goal
+Compute pairwise community distances and visualise sample clustering with PCoA, highlighting season and salinity.
+
+## Steps
+
+### Normalise counts to relative abundances
+
+First, convert ASV counts to relative abundances per sample:
+
+```r
+norm_counts <- t(t(merged_df$counts) / colSums(merged_df$counts, na.rm = TRUE))
+#norm_counts[which(is.na(norm_counts))] <- 0
+```
+
+### Calculate Bray–Curtis distances
+
+Compute pairwise Bray–Curtis distances (beta-diversity):
+
+```r
+bray_dist <- as.matrix(vegdist(t(norm_counts), method = "bray"))
+```
+
+### Run PCoA
+
+Perform Principal Coordinates Analysis on the distance matrix:
+
+```r
+pcoa <- pcoa(bray_dist, correction = "cailliez")
+```
+
+### Plot PCoA results
+
+We plot samples in PCoA space using the first two axes and show dataset-specific panels and legends.
+
+```r
+layout(matrix(c(1,1,1,1,2,2,2,2,3,4), 5, 2, byrow = TRUE))
+par(mar = c(5, 5, 1, 1), xpd = TRUE, cex.axis = 1)
+
+xlab <- paste("PC1 ", round(pcoa$values$Eigenvalues[1]), "%", sep = "")
+ylab <- paste("PC2 ", round(pcoa$values$Eigenvalues[2]), "%", sep = "")
+
+# Panel: 2019_2020
+plot(pcoa$vectors[,1], pcoa$vectors[,2],
+     pch = pch, col = "white", bg = "white",
+     xlab = xlab, ylab = ylab, main = "2019_2020")
+points(pcoa$vectors[DS_2019_2020,1], pcoa$vectors[DS_2019_2020,2],
+       pch = pch[DS_2019_2020], col = "black",
+       bg = color_yday[yday[DS_2019_2020]],
+       cex = 1.0 + as.numeric(salinity[DS_2019_2020]) / 10)
+
+# Panel: 2013
+plot(pcoa$vectors[,1], pcoa$vectors[,2],
+     pch = pch, col = "white", bg = "white",
+     xlab = xlab, ylab = ylab, main = "2013")
+points(pcoa$vectors[DS_2013,1], pcoa$vectors[DS_2013,2],
+       pch = pch[DS_2013], col = "black",
+       bg = color_yday[yday[DS_2013]],
+       cex = 1.0 + as.numeric(salinity[DS_2013]) / 10)
+
+# Legend: day of year colour bar
+plot(1:365, rep(1, 365), col = color_yday, pch = "|", cex = 3, axes = FALSE, ylim = c(0.9, 1.3))
+axis(1, at = c(1, 182, 365), labels = c("12", "182", "365"), cex = 3)
+text(182, 1.2, "Day of year", cex = 2)
+
+# Legend: salinity size scale
+plot(c(0, 10, 20), rep(1, 3),
+     col = "black", pch = 1, cex = c(1.6, 2.4, 3.2),
+     xlim = c(-5, 25), ylim = c(0.9, 1.3), axes = FALSE, ylab = "", xlab = "")
+axis(1, at = c(0, 10, 20), labels = c("2", "18", "34"), cex = 3)
+text(10, 1.2, "Salinity", cex = 2)
+```
+
+Interpretation: the PCoA shows that community composition is structured by both salinity and season.
+
+---
+
+[← Previous](tutorial-03-map.qmd) · [Overview](index.qmd) · [Next →](tutorial-05-barplots.qmd)

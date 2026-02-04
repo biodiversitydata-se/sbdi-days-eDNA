@@ -12,3 +12,5 @@ This tutorial walks through the main steps needed to integrate ASV portal data i
 3. [Map samples](tutorial-03-map.qmd) — Explore sampling coverage across season and salinity
 4. [Community structure](tutorial-04-pcoa.qmd) — Bray–Curtis distances and PCoA across samples
 5. [Taxonomic composition](tutorial-05-barplots.qmd) — Taxonomic barplots across salinity basins
+6. [Predict environmental parameters](tutorial-06-randomforest.qmd) — Random Forest prediction from community composition
+7. [Analyse 18S data](tutorial-07-18S.qmd) — Genus-level Bray–Curtis and PCoA on 18S data

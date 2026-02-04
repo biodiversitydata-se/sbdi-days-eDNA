@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>3. Map samples – Exploring eDNA in SBDI</title>
+<title>5. Taxonomic composition and barplots – Exploring eDNA in SBDI</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -156,7 +156,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">3. Map samples</h1>
+<h1 class="title">5. Taxonomic composition and barplots</h1>
 </div>
 
 
@@ -173,130 +173,56 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>In this section we explore the spatial and temporal distribution of samples and inspect contextual environmental data.</p>
+<p>In this section we produce taxonomic barplots across salinity basins and months to inspect changes in composition at different taxonomic ranks.</p>
 <section id="goal" class="level2">
 <h2 class="anchored" data-anchor-id="goal">Goal</h2>
-<p>Visualise sampling coverage across geography, season, and salinity.</p>
+<p>Create monthly taxonomic barplots for salinity-defined basins and highlight dominant taxa.</p>
 </section>
 <section id="steps" class="level2">
 <h2 class="anchored" data-anchor-id="steps">Steps</h2>
-<section id="inspect-contextual-data" class="level3">
-<h3 class="anchored" data-anchor-id="inspect-contextual-data">Inspect contextual data</h3>
-<p>Sample-level contextual information is available in <code>merged_df$events</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(merged_df<span class="sc">$</span>events)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Samples are ordered consistently across all tables, which makes it straightforward to link sequence data with contextual data.</p>
-<p>To simplify downstream analyses, we identify samples belonging to each dataset:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>DS_2013 <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">"KTH-2013-Baltic"</span>, merged_df<span class="sc">$</span>events<span class="sc">$</span>eventID)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>DS_2019_2020 <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">"PRJEB55296-"</span>, merged_df<span class="sc">$</span>events<span class="sc">$</span>eventID)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="define-the-barplot-function" class="level3">
+<h3 class="anchored" data-anchor-id="define-the-barplot-function">Define the barplot function</h3>
+<p>The function below aggregates monthly averages within salinity intervals and plots stacked barplots for the top taxa.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>plot_barplots <span class="ot">&lt;-</span> <span class="cf">function</span>(rank, <span class="at">size_taxa =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">main =</span> <span class="st">""</span>, <span class="at">top_x =</span> <span class="dv">10</span>) {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  mycols <span class="ot">&lt;-</span> <span class="fu">colorRampPalette</span>(<span class="fu">c</span>(</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"#a6cee3"</span>, <span class="st">"#1f78b4"</span>, <span class="st">"#b2df8a"</span>, <span class="st">"#33a02c"</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"#fb9a99"</span>, <span class="st">"#e31a1c"</span>, <span class="st">"#fdbf6f"</span>, <span class="st">"#ff7f00"</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"#cab2d6"</span>, <span class="st">"#6a3d9a"</span>, <span class="st">"#ffff99"</span>, <span class="st">"#b15928"</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">1</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">14</span>), <span class="at">xpd =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  salinity_intervals <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">3</span>), <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">6</span>), <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">12</span>), <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">20</span>), <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">35</span>))</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  ok <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">rowMeans</span>(cladecounts_df<span class="sc">$</span>norm[[rank]]), <span class="at">index.return =</span> <span class="cn">TRUE</span>, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)<span class="sc">$</span>ix[<span class="dv">1</span><span class="sc">:</span>top_x]</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (size_taxa <span class="sc">==</span> <span class="sc">-</span><span class="dv">1</span>) { size_taxa <span class="ot">&lt;-</span> <span class="fu">min</span>(<span class="fl">1.5</span>, <span class="dv">8</span> <span class="sc">/</span> <span class="fu">length</span>(ok)) }</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) {</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    ix <span class="ot">&lt;-</span> <span class="fu">intersect</span>(<span class="fu">which</span>(salinity <span class="sc">&gt;=</span> salinity_intervals[i,<span class="dv">1</span>]), <span class="fu">which</span>(salinity <span class="sc">&lt;</span> salinity_intervals[i,<span class="dv">2</span>]))</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    monthly_averages_matr <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">ncol =</span> <span class="dv">12</span>, <span class="at">nrow =</span> <span class="fu">nrow</span>(cladecounts_df<span class="sc">$</span>norm[[rank]]))</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>) {</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>      ix2 <span class="ot">&lt;-</span> <span class="fu">intersect</span>(ix, <span class="fu">which</span>(month <span class="sc">==</span> j))</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="fu">length</span>(ix2) <span class="sc">&gt;</span> <span class="dv">1</span>) { monthly_averages_matr[, j] <span class="ot">&lt;-</span> <span class="fu">rowMeans</span>(cladecounts_df<span class="sc">$</span>norm[[rank]][, ix2]) }</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="fu">length</span>(ix2) <span class="sc">==</span> <span class="dv">1</span>) { monthly_averages_matr[, j] <span class="ot">&lt;-</span> cladecounts_df<span class="sc">$</span>norm[[rank]][, ix2] }</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="fu">length</span>(ix2) <span class="sc">==</span> <span class="dv">0</span>) { monthly_averages_matr[, j] <span class="ot">&lt;-</span> <span class="dv">0</span> }</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">barplot</span>(monthly_averages_matr[ok, ], <span class="at">col =</span> <span class="fu">mycols</span>(<span class="fu">length</span>(ok)),</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>            <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">"Salinity"</span>, salinity_intervals[i,<span class="dv">1</span>], <span class="st">"-"</span>, salinity_intervals[i,<span class="dv">2</span>]))</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">legend</span>(<span class="st">"bottomleft"</span>, <span class="at">bty =</span> <span class="st">"n"</span>, <span class="at">pch =</span> <span class="dv">19</span>,</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>           <span class="at">col =</span> <span class="fu">mycols</span>(<span class="fu">length</span>(ok))[<span class="fu">length</span>(ok)<span class="sc">:</span><span class="dv">1</span>],</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>           <span class="at">cex =</span> size_taxa, <span class="at">inset =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>           <span class="at">legend =</span> <span class="fu">rownames</span>(cladecounts_df<span class="sc">$</span>norm[[rank]])[<span class="fu">rev</span>(ok)])</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="note-on-taxonomic-ranks" class="level3">
+<h3 class="anchored" data-anchor-id="note-on-taxonomic-ranks">Note on taxonomic ranks</h3>
+<p>Use numeric rank codes where: 1 = kingdom (or domain), 2 = phylum, 3 = class, 4 = order, 5 = family, 6 = genus, 7 = species.</p>
+<p>Some datasets may also contain OTU-level identifiers (e.g.&nbsp;BOLD-BINs, Unite SHs).</p>
+</section>
+<section id="example-plot-top-classes" class="level3">
+<h3 class="anchored" data-anchor-id="example-plot-top-classes">Example: plot top classes</h3>
+<p>Plot the 8 most abundant classes:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_barplots</span>(<span class="at">rank =</span> <span class="dv">3</span>, <span class="at">top_x =</span> <span class="dv">8</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This will create five stacked barplot rows (one per salinity interval), each showing monthly averages for the selected taxa.</p>
 <hr>
-</section>
-<section id="check-primers" class="level3">
-<h3 class="anchored" data-anchor-id="check-primers">Check primers</h3>
-<p>We check which primers were used in the datasets:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(merged_df<span class="sc">$</span>events<span class="sc">$</span>pcr_primer_name_forward[DS_2013])</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(merged_df<span class="sc">$</span>events<span class="sc">$</span>pcr_primer_name_forward[DS_2019_2020])</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(merged_df<span class="sc">$</span>events<span class="sc">$</span>pcr_primer_name_reverse[DS_2013])</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(merged_df<span class="sc">$</span>events<span class="sc">$</span>pcr_primer_name_reverse[DS_2019_2020])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<hr>
-</section>
-<section id="extract-spatial-and-temporal-variables" class="level3">
-<h3 class="anchored" data-anchor-id="extract-spatial-and-temporal-variables">Extract spatial and temporal variables</h3>
-<p>We extract latitude, longitude, month, and day of year for each sample:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>lat <span class="ot">&lt;-</span> merged_df<span class="sc">$</span>events<span class="sc">$</span>decimalLatitude</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>lon <span class="ot">&lt;-</span> merged_df<span class="sc">$</span>events<span class="sc">$</span>decimalLongitude</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>month <span class="ot">&lt;-</span> <span class="fu">month</span>(merged_df<span class="sc">$</span>events<span class="sc">$</span>eventDate)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>yday <span class="ot">&lt;-</span> <span class="fu">yday</span>(merged_df<span class="sc">$</span>events<span class="sc">$</span>eventDate)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<hr>
-</section>
-<section id="inspect-emof-data" class="level3">
-<h3 class="anchored" data-anchor-id="inspect-emof-data">Inspect EMoF data</h3>
-<p>More detailed environmental parameters are available in <code>merged_df$emof</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(merged_df<span class="sc">$</span>emof)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>We now extract salinity and temperature values for all samples.</p>
-<section id="salinity" class="level4">
-<h4 class="anchored" data-anchor-id="salinity">Salinity</h4>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>salinity <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">nrow</span>(merged_df<span class="sc">$</span>emof))</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>salinity[DS_2013] <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(merged_df<span class="sc">$</span>emof<span class="sc">$</span><span class="st">`</span><span class="at">salinity (psu)</span><span class="st">`</span>[DS_2013])</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>salinity[DS_2019_2020] <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(merged_df<span class="sc">$</span>emof<span class="sc">$</span><span class="st">`</span><span class="at">salinity_average (psu)</span><span class="st">`</span>[DS_2019_2020])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="temperature" class="level4">
-<h4 class="anchored" data-anchor-id="temperature">Temperature</h4>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>temperature <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">nrow</span>(merged_df<span class="sc">$</span>emof))</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>temperature[DS_2013] <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(merged_df<span class="sc">$</span>emof<span class="sc">$</span><span class="st">`</span><span class="at">temperature (°C)</span><span class="st">`</span>[DS_2013])</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>temperature[DS_2019_2020] <span class="ot">&lt;-</span> <span class="fu">rowMeans</span>(<span class="fu">cbind</span>(</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.numeric</span>(merged_df<span class="sc">$</span>emof<span class="sc">$</span><span class="st">`</span><span class="at">temperature_water_CTD_0-1m (°C)</span><span class="st">`</span>[DS_2019_2020]),</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.numeric</span>(merged_df<span class="sc">$</span>emof<span class="sc">$</span><span class="st">`</span><span class="at">temperature_water_CTD_5m (°C)</span><span class="st">`</span>[DS_2019_2020]),</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.numeric</span>(merged_df<span class="sc">$</span>emof<span class="sc">$</span><span class="st">`</span><span class="at">temperature_water_CTD_10m (°C)</span><span class="st">`</span>[DS_2019_2020])</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<hr>
-</section>
-</section>
-<section id="prepare-plotting-symbols" class="level3">
-<h3 class="anchored" data-anchor-id="prepare-plotting-symbols">Prepare plotting symbols</h3>
-<p>We define dataset-specific plotting symbols:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>pch <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">nrow</span>(merged_df<span class="sc">$</span>counts))</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>pch[DS_2013] <span class="ot">&lt;-</span> <span class="dv">21</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>pch[DS_2019_2020] <span class="ot">&lt;-</span> <span class="dv">22</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>We also define a colour scale for seasonality:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>color_yday <span class="ot">&lt;-</span> <span class="fu">colorRampPalette</span>(</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"#2c7fb8"</span>, <span class="st">"#addd8e"</span>, <span class="st">"#edf8b1"</span>, <span class="st">"#fa9fb5"</span>, <span class="st">"#2c7fb8"</span>)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>)(<span class="dv">366</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<hr>
-</section>
-<section id="map-samples" class="level3">
-<h3 class="anchored" data-anchor-id="map-samples">Map samples</h3>
-<p>We define a function for plotting samples by month:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>plot_map <span class="ot">&lt;-</span> <span class="cf">function</span>(dataset) {</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>), <span class="at">xpd =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>) {</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    ix <span class="ot">&lt;-</span> <span class="fu">intersect</span>(dataset, <span class="fu">which</span>(month <span class="sc">==</span> i))</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    newmap <span class="ot">&lt;-</span> <span class="fu">getMap</span>(<span class="at">resolution =</span> <span class="st">"low"</span>)</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>      newmap,</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">11</span>, <span class="dv">22</span>),</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">62</span>, <span class="dv">63</span>),</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">asp =</span> <span class="dv">1</span>,</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">"Month"</span>, i)</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">points</span>(</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>      lon[ix],</span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>      lat[ix],</span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">col =</span> <span class="st">"black"</span>,</span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>      <span class="at">bg =</span> color_yday[yday][ix],</span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>      <span class="at">pch =</span> pch[ix],</span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>      <span class="at">cex =</span> <span class="fl">1.5</span> <span class="sc">+</span> <span class="fu">as.numeric</span>(salinity[ix]) <span class="sc">/</span> <span class="dv">20</span></span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(</span>
-<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span><span class="sc">:</span><span class="dv">365</span>, <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">365</span>),</span>
-<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> color_yday,</span>
-<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch =</span> <span class="st">"|"</span>,</span>
-<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">cex =</span> <span class="dv">3</span>,</span>
-<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">axes =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylim =</span> <span class="fu">c</span>(<span class="fl">0.9</span>, <span class="fl">1.3</span>)</span>
-<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">182</span>, <span class="dv">365</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"12"</span>, <span class="st">"182"</span>, <span class="st">"365"</span>), <span class="at">cex =</span> <span class="dv">3</span>)</span>
-<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="dv">182</span>, <span class="fl">1.1</span>, <span class="st">"Day of year"</span>, <span class="at">cex =</span> <span class="fl">1.4</span>)</span>
-<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(</span>
-<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">20</span>), <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">3</span>),</span>
-<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">"black"</span>,</span>
-<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch =</span> <span class="dv">1</span>,</span>
-<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">cex =</span> <span class="fu">c</span>(<span class="fl">1.6</span>, <span class="fl">2.4</span>, <span class="fl">3.2</span>),</span>
-<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">25</span>),</span>
-<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylim =</span> <span class="fu">c</span>(<span class="fl">0.9</span>, <span class="fl">1.3</span>),</span>
-<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">axes =</span> <span class="cn">FALSE</span></span>
-<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">20</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"2"</span>, <span class="st">"18"</span>, <span class="st">"34"</span>), <span class="at">cex =</span> <span class="dv">3</span>)</span>
-<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="dv">2</span>, <span class="fl">1.1</span>, <span class="st">"Salinity"</span>, <span class="at">cex =</span> <span class="fl">1.4</span>, <span class="at">adj =</span> <span class="dv">0</span>)</span>
-<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>We apply the function to each dataset:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_map</span>(DS_2013)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_map</span>(DS_2019_2020)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<hr>
-<p><a href="./tutorial-02-prep.html">← Previous</a> · <a href="./index.html">Overview</a> · <a href="./tutorial-04-pcoa.html">Next →</a></p>
+<p><a href="./tutorial-04-pcoa.html">← Previous</a> · <a href="./index.html">Overview</a> · <a href="./tutorial-06-randomforest.html">Next →</a></p>
 
 
 </section>

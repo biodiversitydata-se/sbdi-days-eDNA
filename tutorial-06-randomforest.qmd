@@ -1,0 +1,120 @@
+---
+title: "6. Predict environmental parameters (Random Forest)"
+format:
+  html:
+    toc: false
+---
+
+In this section we use Random Forest models to predict environmental parameters from community composition.
+
+## Goal
+Train and evaluate a Random Forest model that predicts an environmental variable (e.g. salinity) from ASV profiles.
+
+## Outline
+We will:
+
+1. choose a target variable (e.g. `salinity` or `temperature`)
+2. build a feature matrix from community data (ASVs or aggregated taxa)
+3. split into training and test sets
+4. train a Random Forest model
+5. evaluate prediction performance and inspect variable importance
+
+## Steps
+
+### Choose target variable
+
+Pick an environmental parameter to predict. For example, salinity:
+
+```r
+y <- salinity
+```
+
+Optionally remove samples with missing values:
+
+```r
+ok <- which(!is.na(y))
+y <- y[ok]
+```
+
+### Create a feature matrix
+
+Use relative abundances as features. Here we start from `merged_df$counts` and normalise per sample:
+
+```r
+X <- merged_df$counts
+X <- t(t(X) / colSums(X, na.rm = TRUE))
+```
+
+Subset to the samples in `ok` (if you removed missing targets above):
+
+```r
+X <- t(X)[ok, , drop = FALSE]  # rows = samples, cols = ASVs
+```
+
+Optionally filter rare ASVs to reduce dimensionality:
+
+```r
+keep <- which(colMeans(X, na.rm = TRUE) > 0)
+X <- X[, keep, drop = FALSE]
+```
+
+### Train/test split
+
+```r
+set.seed(1)
+n <- nrow(X)
+train_ix <- sample(seq_len(n), size = round(0.8 * n))
+test_ix <- setdiff(seq_len(n), train_ix)
+
+X_train <- X[train_ix, , drop = FALSE]
+y_train <- y[train_ix]
+
+X_test <- X[test_ix, , drop = FALSE]
+y_test <- y[test_ix]
+```
+
+### Train Random Forest
+
+Choose a Random Forest implementation available in your environment (e.g. `randomForest`, `ranger`, or `randomForestSRC`). Example using `ranger`:
+
+```r
+# install.packages("ranger")
+library(ranger)
+
+rf <- ranger(
+  x = X_train,
+  y = y_train,
+  num.trees = 500,
+  importance = "permutation"
+)
+```
+
+### Predict and evaluate
+
+```r
+pred <- predict(rf, data = X_test)$predictions
+
+cor(pred, y_test, use = "complete.obs")
+rmse <- sqrt(mean((pred - y_test)^2, na.rm = TRUE))
+rmse
+```
+
+### Plot observed vs predicted
+
+```r
+plot(y_test, pred,
+     xlab = "Observed",
+     ylab = "Predicted")
+abline(0, 1)
+```
+
+### Variable importance (optional)
+
+```r
+imp <- sort(rf$variable.importance, decreasing = TRUE)
+head(imp, 20)
+```
+
+---
+
+[← Previous](tutorial-05-barplots.qmd) · [Overview](index.qmd) · [Next →](tutorial-07-18S.qmd)

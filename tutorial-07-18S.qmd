@@ -1,0 +1,127 @@
+---
+title: "7. Analyse 18S data (genus-level Bray–Curtis)"
+format:
+  html:
+    toc: false
+---
+
+In this section we repeat parts of the workflow using 18S data. We will compute Bray–Curtis distances based on genus-level composition and run a PCoA.
+
+## Goal
+Load 18S data, aggregate to genus level, compute Bray–Curtis distances, and visualise patterns with PCoA.
+
+## Steps
+
+### Load 18S datasets
+
+Set the path to the downloaded 18S data and load it:
+
+```r
+data_path <- "~/bas_sbdi/sbdi/asvportal_data_downloads/20260202_18S_KTH_BalticSea"
+loaded <- load_data(data_path)
+```
+
+### Merge datasets
+
+```r
+merged <- merge_data(loaded)
+```
+
+### Convert to data frames (optional)
+
+```r
+merged_df <- convert_to_df(merged, convert_counts = TRUE, max_cells = 1e9)
+```
+
+### Aggregate to genus
+
+We aggregate read counts by taxonomic rank and extract the genus-level table:
+
+```r
+cladecounts <- sum_by_clade(merged$counts, merged$asvs)
+cladecounts_df <- convert_to_df(cladecounts)
+
+genus_counts <- cladecounts_df$raw$genus
+```
+
+Convert to relative abundances per sample:
+
+```r
+genus_norm <- t(t(genus_counts) / colSums(genus_counts, na.rm = TRUE))
+```
+
+### Bray–Curtis distances on genus composition
+
+```r
+bray_dist <- as.matrix(vegdist(t(genus_norm), method = "bray"))
+```
+
+### Run PCoA
+
+```r
+pcoa <- pcoa(bray_dist, correction = "cailliez")
+```
+
+### Plot PCoA (genus level)
+
+This plot uses the same encoding as in the 16S PCoA section.
+
+```r
+# Identify datasets (adjust patterns if needed)
+DS_2013 <- grep("KTH-2013-Baltic", merged_df$events$eventID)
+DS_2019_2020 <- grep("PRJEB55296-", merged_df$events$eventID)
+
+# Extract season/salinity again (adjust column names if needed)
+lat <- merged_df$events$decimalLatitude
+lon <- merged_df$events$decimalLongitude
+month <- month(merged_df$events$eventDate)
+yday <- yday(merged_df$events$eventDate)
+
+salinity <- rep(NA, nrow(merged_df$emof))
+salinity[DS_2013] <- as.numeric(merged_df$emof$`salinity (psu)`[DS_2013])
+salinity[DS_2019_2020] <- as.numeric(merged_df$emof$`salinity_average (psu)`[DS_2019_2020])
+
+pch <- rep(NA, nrow(merged_df$events))
+pch[DS_2013] <- 21
+pch[DS_2019_2020] <- 22
+
+color_yday <- colorRampPalette(
+  c("#2c7fb8", "#addd8e", "#edf8b1", "#fa9fb5", "#2c7fb8")
+)(366)
+
+layout(matrix(c(1,1,1,1,2,2,2,2,3,4), 5, 2, byrow = TRUE))
+par(mar = c(5, 5, 1, 1), xpd = TRUE, cex.axis = 1)
+
+xlab <- paste("PC1 ", round(pcoa$values$Eigenvalues[1]), "%", sep = "")
+ylab <- paste("PC2 ", round(pcoa$values$Eigenvalues[2]), "%", sep = "")
+
+plot(pcoa$vectors[,1], pcoa$vectors[,2],
+     pch = pch, col = "white", bg = "white",
+     xlab = xlab, ylab = ylab, main = "2019–2020 (18S, genus)")
+points(pcoa$vectors[DS_2019_2020,1], pcoa$vectors[DS_2019_2020,2],
+       pch = pch[DS_2019_2020], col = "black",
+       bg = color_yday[yday[DS_2019_2020]],
+       cex = 1.0 + as.numeric(salinity[DS_2019_2020]) / 10)
+
+plot(pcoa$vectors[,1], pcoa$vectors[,2],
+     pch = pch, col = "white", bg = "white",
+     xlab = xlab, ylab = ylab, main = "2013 (18S, genus)")
+points(pcoa$vectors[DS_2013,1], pcoa$vectors[DS_2013,2],
+       pch = pch[DS_2013], col = "black",
+       bg = color_yday[yday[DS_2013]],
+       cex = 1.0 + as.numeric(salinity[DS_2013]) / 10)
+
+plot(1:365, rep(1, 365), col = color_yday, pch = "|", cex = 3, axes = FALSE, ylim = c(0.9, 1.3))
+axis(1, at = c(1, 182, 365), labels = c("12", "182", "365"), cex = 3)
+text(182, 1.2, "Day of year", cex = 2)
+
+plot(c(0, 10, 20), rep(1, 3),
+     col = "black", pch = 1, cex = c(1.6, 2.4, 3.2),
+     xlim = c(-5, 25), ylim = c(0.9, 1.3), axes = FALSE, ylab = "", xlab = "")
+axis(1, at = c(0, 10, 20), labels = c("2", "18", "34"), cex = 3)
+text(10, 1.2, "Salinity", cex = 2)
+```
+
+---
+
+[← Previous](tutorial-06-randomforest.qmd) · [Overview](index.qmd)
