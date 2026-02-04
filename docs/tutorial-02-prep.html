@@ -186,7 +186,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>datasets</code>: dataset-level metadata</li>
 <li><code>emof</code>: dataset-specific <em>extended measurement or fact</em> contextual data</li>
 </ul>
-<p>When inspecting the lower-level objects, you can see dataset sizes (e.g.&nbsp;<code>KTH-2013-Baltic-16S</code>: 3,074 ASVs × 21 samples). Sparse matrices (<code>dgCMatrix</code>) are used to reduce memory usage for count data, while tabular structures (<code>data.table</code>) are used for metadata.</p>
+<p>Sparse matrices (<code>dgCMatrix</code>) are used to reduce memory usage for count data, while tabular structures (<code>data.table</code>) are used for metadata. When inspecting the lower-level objects, you can see dataset sizes (e.g.&nbsp;<code>KTH-2013-Baltic-16S</code>: 3,074 ASVs × 21 samples).</p>
 <p>To see the full function documentation for <code>load_data</code>:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>?asvoccur<span class="sc">::</span>load_data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
@@ -195,8 +195,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="merge-the-datasets">Merge the datasets</h3>
 <p>Next, we merge the datasets in order to analyse them jointly:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>merged <span class="ot">&lt;-</span> <span class="fu">merge_data</span>(loaded)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The <code>merged</code> object has the same overall structure as <code>loaded</code>, but now contains a single combined version of each table (<code>counts</code>, <code>events</code>, <code>asvs</code>, <code>emof</code>).</p>
-<p>To reduce memory usage, ASV count tables in both <code>loaded$counts</code> and <code>merged$counts</code> are stored as sparse matrices.</p>
+<p>The <code>merged</code> object has the same overall structure as <code>loaded</code>, but now contains a single combined version of each matrix or table (<code>counts</code>, <code>events</code>, <code>asvs</code>, <code>emof</code>).</p>
 <hr>
 </section>
 <section id="convert-merged-data-to-data-frames-optional" class="level3">

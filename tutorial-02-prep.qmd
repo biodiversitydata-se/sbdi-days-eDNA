@@ -23,14 +23,13 @@ This reads all datasets into the `loaded` object, which you can inspect using th
 - `datasets`: dataset-level metadata
 - `emof`: dataset-specific *extended measurement or fact* contextual data
 
-When inspecting the lower-level objects, you can see dataset sizes (e.g. `KTH-2013-Baltic-16S`: 3,074 ASVs × 21 samples). Sparse matrices (`dgCMatrix`) are used to reduce memory usage for count data, while tabular structures (`data.table`) are used for metadata.
+Sparse matrices (`dgCMatrix`) are used to reduce memory usage for count data, while tabular structures (`data.table`) are used for metadata. When inspecting the lower-level objects, you can see dataset sizes (e.g. `KTH-2013-Baltic-16S`: 3,074 ASVs × 21 samples). 
 
 To see the full function documentation for `load_data`:
 
 ```r
 ?asvoccur::load_data
 ```
-
 
 ---
 
@@ -42,9 +41,7 @@ Next, we merge the datasets in order to analyse them jointly:
 merged <- merge_data(loaded)
 ```
 
-The `merged` object has the same overall structure as `loaded`, but now contains a single combined version of each table (`counts`, `events`, `asvs`, `emof`).
-
-To reduce memory usage, ASV count tables in both `loaded$counts` and `merged$counts` are stored as sparse matrices.
+The `merged` object has the same overall structure as `loaded`, but now contains a single combined version of each matrix or table (`counts`, `events`, `asvs`, `emof`).
 
 ---
 
