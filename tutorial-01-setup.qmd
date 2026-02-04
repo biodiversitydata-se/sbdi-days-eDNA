@@ -14,7 +14,7 @@ Log in using the credentials provided during the workshop:
 
 [RStudio Server](http://193.10.159.112:8787){target="_blank"}
 
-Follow the tutorial steps and avoid creating additional large objects, as resources are shared. Save your work regularly as an R script. The virtual machine will be shut down after the workshop, so download any code or output you want to keep via the Files pane (More → Export).
+Follow the tutorial steps and **avoid creating additional large objects**, as resources are shared. Save your work regularly as an R script. The virtual machine will be shut down after the workshop, so download any code or output you want to keep via the Files pane (More → Export).
 
 ### Check required packages
 
@@ -27,7 +27,7 @@ packageVersion("asvoccur")  # Should say 1.1.1
 
 ### Check access to example data
 
-Example ASV portal data is available in a shared directory on the virtual machine. Check access:
+For this tutorial, ASV portal data is pre-downloaded and available on the virtual machine. Check access:
 
 ```r
 data_path <- "/srv/course-data/16S"
