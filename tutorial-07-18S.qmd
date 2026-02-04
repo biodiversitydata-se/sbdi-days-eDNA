@@ -22,7 +22,7 @@ loaded <- load_data(data_path)
 merged <- merge_data(loaded)
 ```
 
-### Convert to data frames (optional)
+### Convert to data frames
 
 ```r
 merged_df <- convert_to_df(merged, convert_counts = TRUE, max_cells = 1e9)
