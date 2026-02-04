@@ -12,7 +12,7 @@ format:
 Set the path to the downloaded 18S data and load it:
 
 ```r
-data_path <- "~/bas_sbdi/sbdi/asvportal_data_downloads/20260202_18S_KTH_BalticSea"
+data_path <- "/srv/course-data/18S"
 loaded <- load_data(data_path)
 ```
 
