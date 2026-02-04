@@ -173,11 +173,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>This tutorial is designed to run in a pre-configured cloud environment, with a local setup available as a fallback.</p>
+<p>This tutorial is intended for a pre-configured cloud environment, with a local setup as a fallback.</p>
 <section id="option-a-recommended-workshop-rstudio-environment" class="level2">
 <h2 class="anchored" data-anchor-id="option-a-recommended-workshop-rstudio-environment">Option A (recommended): Workshop RStudio environment</h2>
 <p>A virtual machine running RStudio Server is available in PDC Cloud. Log in using the credentials provided during the workshop:</p>
-<p><a href="http://xxx.xx.xxx.xxx:8787" target="_blank">RStudio Server</a></p>
+<p><a href="http://193.10.159.112:8787" target="_blank">RStudio Server</a></p>
+<p>Follow the tutorial steps and avoid creating additional large objects, as resources are shared. Save your work regularly as an R script. The virtual machine will be shut down after the workshop, so download any code or output you want to keep via the Files pane (More → Export).</p>
 <section id="check-required-packages" class="level3">
 <h3 class="anchored" data-anchor-id="check-required-packages">Check required packages</h3>
 <p>Load <code>asvoccur</code> and confirm version:</p>
@@ -187,9 +188,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="check-access-to-example-data" class="level3">
 <h3 class="anchored" data-anchor-id="check-access-to-example-data">Check access to example data</h3>
 <p>Example ASV portal data is available in a shared directory on the virtual machine. Check access:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data_path <span class="ot">&lt;-</span> <span class="st">"/srv/course-data"</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data_path <span class="ot">&lt;-</span> <span class="st">"/srv/course-data/16S"</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(data_path)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>If three zip files are listed, you are ready to proceed.</p>
+<p>If two (16S) zip files are listed, you are ready to proceed.</p>
 </section>
 </section>
 <section id="option-b-fallback-run-rstudio-locally-on-your-laptop" class="level2">

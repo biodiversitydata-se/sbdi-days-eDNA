@@ -4,7 +4,7 @@
     "href": "tutorial-01-setup.html",
     "title": "1. Set up the environment",
     "section": "",
-    "text": "This tutorial is designed to run in a pre-configured cloud environment, with a local setup available as a fallback."
+    "text": "This tutorial is intended for a pre-configured cloud environment, with a local setup as a fallback."
   },
   {
     "objectID": "tutorial-01-setup.html#goal",
@@ -116,7 +116,7 @@
     "href": "tutorial-01-setup.html#option-a-recommended-workshop-rstudio-environment",
     "title": "1. Set up the environment",
     "section": "Option A (recommended): Workshop RStudio environment",
-    "text": "Option A (recommended): Workshop RStudio environment\nA virtual machine running RStudio Server is available in PDC Cloud. Log in using the credentials provided during the workshop:\nRStudio Server\n\nCheck required packages\nLoad asvoccur and confirm version:\nlibrary(asvoccur)\npackageVersion(\"asvoccur\")  # Should say 1.1.1\n\n\nCheck access to example data\nExample ASV portal data is available in a shared directory on the virtual machine. Check access:\ndata_path &lt;- \"/srv/course-data\"\nlist.files(data_path)\nIf three zip files are listed, you are ready to proceed."
+    "text": "Option A (recommended): Workshop RStudio environment\nA virtual machine running RStudio Server is available in PDC Cloud. Log in using the credentials provided during the workshop:\nRStudio Server\nFollow the tutorial steps and avoid creating additional large objects, as resources are shared. Save your work regularly as an R script. The virtual machine will be shut down after the workshop, so download any code or output you want to keep via the Files pane (More → Export).\n\nCheck required packages\nLoad asvoccur and confirm version:\nlibrary(asvoccur)\npackageVersion(\"asvoccur\")  # Should say 1.1.1\n\n\nCheck access to example data\nExample ASV portal data is available in a shared directory on the virtual machine. Check access:\ndata_path &lt;- \"/srv/course-data/16S\"\nlist.files(data_path)\nIf two (16S) zip files are listed, you are ready to proceed."
   },
   {
     "objectID": "tutorial-01-setup.html#option-b-fallback-run-rstudio-locally-on-your-laptop",
