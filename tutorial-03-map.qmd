@@ -5,12 +5,7 @@ format:
     toc: false
 ---
 
-In this section we explore the spatial and temporal distribution of samples and inspect contextual environmental data.
-
-## Goal
-Visualise sampling coverage across geography, season, and salinity.
-
-## Steps
+*Explore the spatial and seasonal distribution of samples and inspect associated environmental data.*
 
 ### Inspect contextual data
 

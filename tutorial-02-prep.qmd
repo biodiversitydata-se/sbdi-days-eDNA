@@ -5,12 +5,7 @@ format:
     toc: false
 ---
 
-In this section we load ASV portal data into R, merge datasets, and prepare count tables for downstream analyses.
-
-## Goal
-Load, merge and aggregate ASV portal data into a format suitable for ecological analyses.
-
-## Steps
+*Load, merge and aggregate ASV portal data into a format suitable for downstream ecological analyses.*
 
 ### Load the datasets
 

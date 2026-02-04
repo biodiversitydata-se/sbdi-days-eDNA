@@ -5,12 +5,7 @@ format:
     toc: false
 ---
 
-In this section we analyse community composition using Bray–Curtis distances and visualise sample relationships with a Principal Coordinates Analysis (PCoA).
-
-## Goal
-Compute pairwise community distances and visualise sample clustering with PCoA, highlighting season and salinity.
-
-## Steps
+*Analyse community composition using Bray–Curtis distances and visualise patterns with a Principal Coordinates Analysis (PCoA).*
 
 ### Normalise counts to relative abundances
 

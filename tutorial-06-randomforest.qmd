@@ -5,21 +5,7 @@ format:
     toc: false
 ---
 
-In this section we use Random Forest models to predict environmental parameters from community composition.
-
-## Goal
-Train and evaluate a Random Forest model that predicts an environmental variable (e.g. salinity) from ASV profiles.
-
-## Outline
-We will:
-
-1. choose a target variable (e.g. `salinity` or `temperature`)
-2. build a feature matrix from community data (ASVs or aggregated taxa)
-3. split into training and test sets
-4. train a Random Forest model
-5. evaluate prediction performance and inspect variable importance
-
-## Steps
+*Use Random Forest models to predict environmental parameters from community composition data.*
 
 ### Choose target variable
 

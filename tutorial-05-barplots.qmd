@@ -5,12 +5,7 @@ format:
     toc: false
 ---
 
-In this section we produce taxonomic barplots across salinity basins and months to inspect changes in composition at different taxonomic ranks.
-
-## Goal
-Create monthly taxonomic barplots for salinity-defined basins and highlight dominant taxa.
-
-## Steps
+*Summarise taxonomic composition across salinity gradients and seasons using stacked barplots.*
 
 ### Define the barplot function
 

@@ -5,12 +5,7 @@ format:
     toc: false
 ---
 
-In this section we repeat parts of the workflow using 18S data. We will compute Bray–Curtis distances based on genus-level composition and run a PCoA.
-
-## Goal
-Load 18S data, aggregate to genus level, compute Bray–Curtis distances, and visualise patterns with PCoA.
-
-## Steps
+*Repeat the workflow using 18S data to demonstrate genus-level community analyses and PCoA.*
 
 ### Load 18S datasets
 
