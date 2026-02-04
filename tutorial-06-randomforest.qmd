@@ -117,4 +117,4 @@ head(imp, 20)
 
 ---
 
-[← Previous](tutorial-05-barplots.qmd) · [Overview](index.qmd) · [Next →](tutorial-07-18S.qmd)
+[← Previous](tutorial-05-barplots.qmd) · [Overview](tutorial.qmd) · [Next →](tutorial-07-18S.qmd)

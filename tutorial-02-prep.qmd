@@ -107,4 +107,4 @@ At this point, the data are ready for exploration and analysis.
 
 ---
 
-[← Previous](tutorial-01-setup.qmd) · [Overview](index.qmd) · [Next →](tutorial-03-map.qmd)
+[← Previous](tutorial-01-setup.qmd) · [Overview](tutorial.qmd) · [Next →](tutorial-03-map.qmd)

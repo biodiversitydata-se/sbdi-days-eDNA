@@ -171,4 +171,4 @@ plot_map(DS_2019_2020)
 
 ---
 
-[← Previous](tutorial-02-prep.qmd) · [Overview](index.qmd) · [Next →](tutorial-04-pcoa.qmd)
+[← Previous](tutorial-02-prep.qmd) · [Overview](tutorial.qmd) · [Next →](tutorial-04-pcoa.qmd)

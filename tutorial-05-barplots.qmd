@@ -65,4 +65,4 @@ This will create five stacked barplot rows (one per salinity interval), each sho
 
 ---
 
-[← Previous](tutorial-04-pcoa.qmd) · [Overview](index.qmd) · [Next →](tutorial-06-randomforest.qmd)
+[← Previous](tutorial-04-pcoa.qmd) · [Overview](tutorial.qmd) · [Next →](tutorial-06-randomforest.qmd)

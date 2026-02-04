@@ -83,4 +83,4 @@ Interpretation: the PCoA shows that community composition is structured by both 
 
 ---
 
-[← Previous](tutorial-03-map.qmd) · [Overview](index.qmd) · [Next →](tutorial-05-barplots.qmd)
+[← Previous](tutorial-03-map.qmd) · [Overview](tutorial.qmd) · [Next →](tutorial-05-barplots.qmd)
