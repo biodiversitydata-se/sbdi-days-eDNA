@@ -123,6 +123,6 @@
     "href": "tutorial-01-setup.html#option-b-fallback-run-rstudio-locally-on-your-laptop",
     "title": "1. Set up the environment",
     "section": "Option B (fallback): Run RStudio locally on your laptop",
-    "text": "Option B (fallback): Run RStudio locally on your laptop\nOur cloud environment is being tested for the first time. If needed, you can run the tutorial locally.\nYou will need to install:\n\nR\nRStudio\nthe remotes and asvoccur R packages\n\nTo install the required R packages:\ninstall.packages('remotes')\nremotes::install_github(\"biodiversitydata-se/asvoccur\")\nlibrary(asvoccur)\npackageVersion(\"asvoccur\")  # Should say 1.1.1\nIn this option, example data is accessed via a shared Google Drive folder."
+    "text": "Option B (fallback): Run RStudio locally on your laptop\nOur cloud environment is being tested for the first time. If needed, you can run the tutorial locally.\nYou will need to install:\n\nR\nRStudio\nthe remotes and asvoccur R packages\n\nTo install the required R packages:\ninstall.packages('remotes')\nremotes::install_github(\"biodiversitydata-se/asvoccur\")\nlibrary(asvoccur)\npackageVersion(\"asvoccur\")  # Should say 1.1.1\nIn this option, example data is accessed via a shared Google Drive folder.\nOverview · Next →"
   }
 ]
