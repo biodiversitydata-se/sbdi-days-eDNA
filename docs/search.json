@@ -67,7 +67,7 @@
     "href": "tutorial.html#exploration-of-biodiversity-patterns-across-environments",
     "title": "Import and analyse ASV portal data with R",
     "section": "Exploration of biodiversity patterns across environments",
-    "text": "Exploration of biodiversity patterns across environments\n\nPrepare data — Unpack, merge and aggregate data sourced from the ASV portal\nyyy — yyy\nzzz — zzz"
+    "text": "Exploration of biodiversity patterns across environments\n\nPrepare data — Load, merge and aggregate data sourced from the ASV portal\nMap samples — Explore sampling coverage across season and salinity\nCommunity structure — Bray–Curtis distances and PCoA across samples\nTaxonomic composition — Taxonomic barplots across salinity basins"
   },
   {
     "objectID": "index.html",
