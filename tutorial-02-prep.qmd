@@ -9,22 +9,28 @@ format:
 
 ### Load the datasets
 
-Load our two 16S datasets, using the `data_path` object defined in the [previous section](tutorial-01-setup.qmd).
+Load the two 16S datasets using the `data_path` object defined in the [previous section](tutorial-01-setup.qmd):
 
 ```r
 loaded <- load_data(data_path)
 ```
 
-This loads all datasets located in the specified folder into the `loaded` object.
+This reads all datasets into the `loaded` object, which you can inspect using the magnifying glass in the Environment pane. The object is list organised into sub-lists by data type, each containing one table or matrix element per dataset:
 
-The `loaded` object is a list containing several tables for each dataset, including:
-
-- `counts`: ASV read counts (stored as sparse matrices)
-- `events`: sample-level contextual data
+- `counts`: ASV read counts
 - `asvs`: ASV sequences and taxonomic annotations
-- `emof`: extended measurement or fact data (environmental parameters)
+- `events`: core sample-level metadata (*where, when, how, who*)
+- `datasets`: dataset-level metadata
+- `emof`: dataset-specific *extended measurement or fact* contextual data
 
-At this stage, each dataset is kept separate.
+When inspecting the lower-level objects, you can see dataset sizes (e.g. `KTH-2013-Baltic-16S`: 3,074 ASVs × 21 samples). Sparse matrices (`dgCMatrix`) are used to reduce memory usage for count data, while tabular structures (`data.table`) are used for metadata.
+
+To see the full function documentation for `load_data`:
+
+```r
+?asvoccur::load_data
+```
+
 
 ---
 
