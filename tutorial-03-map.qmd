@@ -1,0 +1,174 @@
+---
+title: "3. Map samples"
+format:
+  html:
+    toc: false
+---
+
+In this section we explore the spatial and temporal distribution of samples and inspect contextual environmental data.
+
+## Goal
+Visualise sampling coverage across geography, season, and salinity.
+
+## Steps
+
+### Inspect contextual data
+
+Sample-level contextual information is available in `merged_df$events`:
+
+```r
+colnames(merged_df$events)
+```
+
+Samples are ordered consistently across all tables, which makes it straightforward to link sequence data with contextual data.
+
+To simplify downstream analyses, we identify samples belonging to each dataset:
+
+```r
+DS_2013 <- grep("KTH-2013-Baltic", merged_df$events$eventID)
+DS_2019_2020 <- grep("PRJEB55296-", merged_df$events$eventID)
+```
+
+---
+
+### Check primers
+
+We check which primers were used in the datasets:
+
+```r
+unique(merged_df$events$pcr_primer_name_forward[DS_2013])
+unique(merged_df$events$pcr_primer_name_forward[DS_2019_2020])
+
+unique(merged_df$events$pcr_primer_name_reverse[DS_2013])
+unique(merged_df$events$pcr_primer_name_reverse[DS_2019_2020])
+```
+
+---
+
+### Extract spatial and temporal variables
+
+We extract latitude, longitude, month, and day of year for each sample:
+
+```r
+lat <- merged_df$events$decimalLatitude
+lon <- merged_df$events$decimalLongitude
+month <- month(merged_df$events$eventDate)
+yday <- yday(merged_df$events$eventDate)
+```
+
+---
+
+### Inspect EMoF data
+
+More detailed environmental parameters are available in `merged_df$emof`:
+
+```r
+colnames(merged_df$emof)
+```
+
+We now extract salinity and temperature values for all samples.
+
+#### Salinity
+
+```r
+salinity <- rep(NA, nrow(merged_df$emof))
+salinity[DS_2013] <- as.numeric(merged_df$emof$`salinity (psu)`[DS_2013])
+salinity[DS_2019_2020] <- as.numeric(merged_df$emof$`salinity_average (psu)`[DS_2019_2020])
+```
+
+#### Temperature
+
+```r
+temperature <- rep(NA, nrow(merged_df$emof))
+temperature[DS_2013] <- as.numeric(merged_df$emof$`temperature (°C)`[DS_2013])
+temperature[DS_2019_2020] <- rowMeans(cbind(
+  as.numeric(merged_df$emof$`temperature_water_CTD_0-1m (°C)`[DS_2019_2020]),
+  as.numeric(merged_df$emof$`temperature_water_CTD_5m (°C)`[DS_2019_2020]),
+  as.numeric(merged_df$emof$`temperature_water_CTD_10m (°C)`[DS_2019_2020])
+))
+```
+
+---
+
+### Prepare plotting symbols
+
+We define dataset-specific plotting symbols:
+
+```r
+pch <- rep(NA, nrow(merged_df$counts))
+pch[DS_2013] <- 21
+pch[DS_2019_2020] <- 22
+```
+
+We also define a colour scale for seasonality:
+
+```r
+color_yday <- colorRampPalette(
+  c("#2c7fb8", "#addd8e", "#edf8b1", "#fa9fb5", "#2c7fb8")
+)(366)
+```
+
+---
+
+### Map samples
+
+We define a function for plotting samples by month:
+
+```r
+plot_map <- function(dataset) {
+  par(mfrow = c(4, 4), mar = c(3, 3, 3, 3), xpd = TRUE)
+  for (i in 1:12) {
+    ix <- intersect(dataset, which(month == i))
+    newmap <- getMap(resolution = "low")
+    plot(
+      newmap,
+      xlim = c(11, 22),
+      ylim = c(62, 63),
+      asp = 1,
+      main = paste("Month", i)
+    )
+    points(
+      lon[ix],
+      lat[ix],
+      col = "black",
+      bg = color_yday[yday][ix],
+      pch = pch[ix],
+      cex = 1.5 + as.numeric(salinity[ix]) / 20
+    )
+  }
+
+  plot(
+    1:365, rep(1, 365),
+    col = color_yday,
+    pch = "|",
+    cex = 3,
+    axes = FALSE,
+    ylim = c(0.9, 1.3)
+  )
+  axis(1, at = c(1, 182, 365), labels = c("12", "182", "365"), cex = 3)
+  text(182, 1.1, "Day of year", cex = 1.4)
+
+  plot(
+    c(0, 10, 20), rep(1, 3),
+    col = "black",
+    pch = 1,
+    cex = c(1.6, 2.4, 3.2),
+    xlim = c(-5, 25),
+    ylim = c(0.9, 1.3),
+    axes = FALSE
+  )
+  axis(1, at = c(0, 10, 20), labels = c("2", "18", "34"), cex = 3)
+  text(2, 1.1, "Salinity", cex = 1.4, adj = 0)
+}
+```
+
+We apply the function to each dataset:
+
+```r
+plot_map(DS_2013)
+plot_map(DS_2019_2020)
+```
+
+---
+
+[← Previous](tutorial-02-prep.qmd) · [Home](index.qmd) · [Next →](tutorial-04-pcoa.qmd)

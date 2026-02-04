@@ -124,5 +124,26 @@
     "title": "1. Set up the environment",
     "section": "Option B (fallback): Run RStudio locally on your laptop",
     "text": "Option B (fallback): Run RStudio locally on your laptop\nOur cloud environment is being tested for the first time. If needed, you can run the tutorial locally.\nYou will need to install:\n\nR\nRStudio\nthe remotes and asvoccur R packages\n\nTo install the required R packages:\ninstall.packages('remotes')\nremotes::install_github(\"biodiversitydata-se/asvoccur\")\nlibrary(asvoccur)\npackageVersion(\"asvoccur\")  # Should say 1.1.1\nIn this option, example data is accessed via a shared Google Drive folder.\nOverview · Next →"
+  },
+  {
+    "objectID": "tutorial-03-map.html",
+    "href": "tutorial-03-map.html",
+    "title": "3. Map samples",
+    "section": "",
+    "text": "In this section we explore the spatial and temporal distribution of samples and inspect contextual environmental data."
+  },
+  {
+    "objectID": "tutorial-03-map.html#goal",
+    "href": "tutorial-03-map.html#goal",
+    "title": "3. Map samples",
+    "section": "Goal",
+    "text": "Goal\nVisualise sampling coverage across geography, season, and salinity."
+  },
+  {
+    "objectID": "tutorial-03-map.html#steps",
+    "href": "tutorial-03-map.html#steps",
+    "title": "3. Map samples",
+    "section": "Steps",
+    "text": "Steps\n\nInspect contextual data\nSample-level contextual information is available in merged_df$events:\ncolnames(merged_df$events)\nSamples are ordered consistently across all tables, which makes it straightforward to link sequence data with contextual data.\nTo simplify downstream analyses, we identify samples belonging to each dataset:\nDS_2013 &lt;- grep(\"KTH-2013-Baltic\", merged_df$events$eventID)\nDS_2019_2020 &lt;- grep(\"PRJEB55296-\", merged_df$events$eventID)\n\n\n\nCheck primers\nWe check which primers were used in the datasets:\nunique(merged_df$events$pcr_primer_name_forward[DS_2013])\nunique(merged_df$events$pcr_primer_name_forward[DS_2019_2020])\n\nunique(merged_df$events$pcr_primer_name_reverse[DS_2013])\nunique(merged_df$events$pcr_primer_name_reverse[DS_2019_2020])\n\n\n\nExtract spatial and temporal variables\nWe extract latitude, longitude, month, and day of year for each sample:\nlat &lt;- merged_df$events$decimalLatitude\nlon &lt;- merged_df$events$decimalLongitude\nmonth &lt;- month(merged_df$events$eventDate)\nyday &lt;- yday(merged_df$events$eventDate)\n\n\n\nInspect EMoF data\nMore detailed environmental parameters are available in merged_df$emof:\ncolnames(merged_df$emof)\nWe now extract salinity and temperature values for all samples.\n\nSalinity\nsalinity &lt;- rep(NA, nrow(merged_df$emof))\nsalinity[DS_2013] &lt;- as.numeric(merged_df$emof$`salinity (psu)`[DS_2013])\nsalinity[DS_2019_2020] &lt;- as.numeric(merged_df$emof$`salinity_average (psu)`[DS_2019_2020])\n\n\nTemperature\ntemperature &lt;- rep(NA, nrow(merged_df$emof))\ntemperature[DS_2013] &lt;- as.numeric(merged_df$emof$`temperature (°C)`[DS_2013])\ntemperature[DS_2019_2020] &lt;- rowMeans(cbind(\n  as.numeric(merged_df$emof$`temperature_water_CTD_0-1m (°C)`[DS_2019_2020]),\n  as.numeric(merged_df$emof$`temperature_water_CTD_5m (°C)`[DS_2019_2020]),\n  as.numeric(merged_df$emof$`temperature_water_CTD_10m (°C)`[DS_2019_2020])\n))\n\n\n\n\nPrepare plotting symbols\nWe define dataset-specific plotting symbols:\npch &lt;- rep(NA, nrow(merged_df$counts))\npch[DS_2013] &lt;- 21\npch[DS_2019_2020] &lt;- 22\nWe also define a colour scale for seasonality:\ncolor_yday &lt;- colorRampPalette(\n  c(\"#2c7fb8\", \"#addd8e\", \"#edf8b1\", \"#fa9fb5\", \"#2c7fb8\")\n)(366)\n\n\n\nMap samples\nWe define a function for plotting samples by month:\nplot_map &lt;- function(dataset) {\n  par(mfrow = c(4, 4), mar = c(3, 3, 3, 3), xpd = TRUE)\n  for (i in 1:12) {\n    ix &lt;- intersect(dataset, which(month == i))\n    newmap &lt;- getMap(resolution = \"low\")\n    plot(\n      newmap,\n      xlim = c(11, 22),\n      ylim = c(62, 63),\n      asp = 1,\n      main = paste(\"Month\", i)\n    )\n    points(\n      lon[ix],\n      lat[ix],\n      col = \"black\",\n      bg = color_yday[yday][ix],\n      pch = pch[ix],\n      cex = 1.5 + as.numeric(salinity[ix]) / 20\n    )\n  }\n\n  plot(\n    1:365, rep(1, 365),\n    col = color_yday,\n    pch = \"|\",\n    cex = 3,\n    axes = FALSE,\n    ylim = c(0.9, 1.3)\n  )\n  axis(1, at = c(1, 182, 365), labels = c(\"12\", \"182\", \"365\"), cex = 3)\n  text(182, 1.1, \"Day of year\", cex = 1.4)\n\n  plot(\n    c(0, 10, 20), rep(1, 3),\n    col = \"black\",\n    pch = 1,\n    cex = c(1.6, 2.4, 3.2),\n    xlim = c(-5, 25),\n    ylim = c(0.9, 1.3),\n    axes = FALSE\n  )\n  axis(1, at = c(0, 10, 20), labels = c(\"2\", \"18\", \"34\"), cex = 3)\n  text(2, 1.1, \"Salinity\", cex = 1.4, adj = 0)\n}\nWe apply the function to each dataset:\nplot_map(DS_2013)\nplot_map(DS_2019_2020)\n\n← Previous · Home · Next →"
   }
 ]
