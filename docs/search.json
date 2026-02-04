@@ -53,7 +53,7 @@
     "href": "tutorial.html",
     "title": "Import and analyse ASV portal data with R",
     "section": "",
-    "text": "This tutorial walks through the main steps needed to integrate ASV portal data in R and explore biodiversity patterns. As an example, we analyse microbial diversity along the Baltic Sea salinity gradient."
+    "text": "This tutorial walks through the main steps needed to integrate ASV portal data in R and explore biodiversity patterns. As an example, we analyse microbial diversity along the Baltic Sea salinity gradient.\n\nSet up the environment — Access the workshop RStudio environment (or run locally)\nPrepare data — Load, merge and aggregate data sourced from the ASV portal\nMap samples — Explore sampling coverage across season and salinity\nCommunity structure — Bray–Curtis distances and PCoA across samples\nTaxonomic composition — Taxonomic barplots across salinity basins"
   },
   {
     "objectID": "tutorial.html#integration-of-asv-portal-data-with-asvoccur",
