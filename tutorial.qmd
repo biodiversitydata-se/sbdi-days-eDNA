@@ -14,3 +14,5 @@ This tutorial walks through the main steps needed to integrate ASV portal data i
 5. [Taxonomic composition](tutorial-05-barplots.qmd) — Taxonomic barplots across salinity basins
 6. [Predict environmental parameters](tutorial-06-randomforest.qmd) — Random Forest prediction from community composition
 7. [Analyse 18S data](tutorial-07-18S.qmd) — Genus-level Bray–Curtis and PCoA on 18S data
+
+[Get started →](tutorial-01-setup.qmd)
