@@ -91,4 +91,6 @@ In this option, example data is downloaded directly from the ASV portal.
        list.files(data_path)
 ```
 
+If two (16S) zip files are listed, you are ready to proceed.
+
 [Overview](tutorial.qmd) · [Next →](tutorial-02-prep.qmd)
