@@ -185,8 +185,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(asvoccur)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">packageVersion</span>(<span class="st">"asvoccur"</span>)  <span class="co"># Should say 1.1.1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="check-access-to-example-data" class="level3">
-<h3 class="anchored" data-anchor-id="check-access-to-example-data">Check access to example data</h3>
+<section id="check-access" class="level3">
+<h3 class="anchored" data-anchor-id="check-access">Check access to example data</h3>
 <p>For this tutorial, ASV portal data is pre-downloaded and available on the virtual machine. Check access:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data_path <span class="ot">&lt;-</span> <span class="st">"/srv/course-data/16S"</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(data_path)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -207,10 +207,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"biodiversitydata-se/asvoccur"</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(asvoccur)</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">packageVersion</span>(<span class="st">"asvoccur"</span>)  <span class="co"># Should say 1.1.1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>In this option, example data is accessed via a shared Google Drive folder.</p>
+<section id="download-example-data-from-the-asv-portal" class="level3">
+<h3 class="anchored" data-anchor-id="download-example-data-from-the-asv-portal">Download example data from the ASV portal</h3>
+<p>In this option, example data is downloaded directly from the ASV portal.</p>
+<ol type="1">
+<li><p>Go to the <a href="https://asv-portal.biodiversitydata.se/index" target="_blank">ASV portal start page</a>.</p>
+<p>Click <strong>DOWNLOAD</strong>. If you are not already logged in, you will be redirected to the login page.</p></li>
+<li><p>If you do not already have an account, either:</p>
+<ul>
+<li>sign in with a Google or GitHub account, or</li>
+<li>create a new SBDI account.</li>
+</ul></li>
+<li><p>On the <strong>Download</strong> page, under <strong>Download link</strong>, download the following datasets (<strong>note</strong> the underlined project IDs to distinguish similar titles):</p>
+<ul>
+<li>PRJEB552<strong><ins>96</ins></strong>-16S</li>
+<li>KTH-2013-Baltic-16S</li>
+<li>PRJEB552<strong><ins>96</ins></strong>-18S</li>
+<li>KTH-2013-Baltic-18S</li>
+</ul></li>
+<li><p>After downloading, organise the data locally into two separate folders:</p>
+<pre><code>sbdi-data/
+├── 16S/
+│   ├── PRJEB55296-16S.zip
+│   └── KTH-2013-Baltic-16S.zip
+└── 18S/
+    ├── PRJEB55296-18S.zip
+    └── KTH-2013-Baltic-18S.zip</code></pre></li>
+<li><p>Set the path to the 16S data folder in R and confirm access:</p>
+<pre><code>data_path &lt;- "actual/path/to/sbdi-data/16S"
+list.files(data_path)</code></pre></li>
+</ol>
 <p><a href="./tutorial.html">Overview</a> · <a href="./tutorial-02-prep.html">Next →</a></p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

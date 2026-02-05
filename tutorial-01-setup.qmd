@@ -25,7 +25,7 @@ library(asvoccur)
 packageVersion("asvoccur")  # Should say 1.1.1
 ```
 
-### Check access to example data
+### Check access to example data {#check-access}
 
 For this tutorial, ASV portal data is pre-downloaded and available on the virtual machine. Check access:
 
@@ -55,6 +55,40 @@ library(asvoccur)
 packageVersion("asvoccur")  # Should say 1.1.1
 ```
 
-In this option, example data is accessed via a shared Google Drive folder.
+### Download example data from the ASV portal
+
+In this option, example data is downloaded directly from the ASV portal.
+
+1. Go to the [ASV portal start page](https://asv-portal.biodiversitydata.se/index){target="_blank"}.
+
+   Click **DOWNLOAD**. If you are not already logged in, you will be redirected to the login page.
+
+2. If you do not already have an account, either:
+   - sign in with a Google or GitHub account, or
+   - create a new SBDI account.
+
+3. On the **Download** page, under **Download link**, download the following datasets
+   (**note** the underlined project IDs to distinguish similar titles):
+
+   - PRJEB552**<ins>96</ins>**-16S
+   - KTH-2013-Baltic-16S
+   - PRJEB552**<ins>96</ins>**-18S
+   - KTH-2013-Baltic-18S
+
+4. After downloading, organise the data locally into two separate folders:
+
+       sbdi-data/
+       ├── 16S/
+       │   ├── PRJEB55296-16S.zip
+       │   └── KTH-2013-Baltic-16S.zip
+       └── 18S/
+           ├── PRJEB55296-18S.zip
+           └── KTH-2013-Baltic-18S.zip
+
+5. Set the path to the 16S data folder in R and confirm access:
+
+       data_path <- "actual/path/to/sbdi-data/16S"
+       list.files(data_path)
+
 
 [Overview](tutorial.qmd) · [Next →](tutorial-02-prep.qmd)
