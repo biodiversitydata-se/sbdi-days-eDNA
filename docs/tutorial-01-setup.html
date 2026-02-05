@@ -226,17 +226,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>KTH-2013-Baltic-18S</li>
 </ul></li>
 <li><p>After downloading, organise the data locally into two separate folders:</p>
-<pre><code>sbdi-data/
+<pre><code>course-data/
 ├── 16S/
 │   ├── PRJEB55296-16S.zip
 │   └── KTH-2013-Baltic-16S.zip
 └── 18S/
     ├── PRJEB55296-18S.zip
     └── KTH-2013-Baltic-18S.zip</code></pre></li>
-<li><p>Set the path to the 16S data folder in R and confirm access:</p>
-<pre><code>data_path &lt;- "actual/path/to/sbdi-data/16S"
-list.files(data_path)</code></pre></li>
+<li><p>Set the path to the 16S data folder in R and confirm access:</p></li>
 </ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>       data_path <span class="ot">&lt;-</span> <span class="st">"local/path/to/course-data/16S"</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">list.files</span>(data_path)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><a href="./tutorial.html">Overview</a> · <a href="./tutorial-02-prep.html">Next →</a></p>
 
 

@@ -12,7 +12,10 @@ format:
 Set the path to the downloaded 18S data and load it:
 
 ```r
-data_path <- "/srv/course-data/18S"
+data_path <- "/srv/course-data/18S"  
+# or, for data downloaded in Option B:
+# data_path <- "local/path/to/course-data/18S"
+
 loaded <- load_data(data_path)
 ```
 
