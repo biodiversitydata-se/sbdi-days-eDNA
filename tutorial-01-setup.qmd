@@ -75,7 +75,7 @@ In this option, example data is downloaded directly from the ASV portal.
    - PRJEB552**<ins>96</ins>**-18S
    - KTH-2013-Baltic-18S
 
-4. After downloading, organise the data locally into two separate folders:
+4. After downloading, organise the data locally into two sub-folders:
 
        course-data/
        ├── 16S/
