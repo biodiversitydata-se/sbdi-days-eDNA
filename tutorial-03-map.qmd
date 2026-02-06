@@ -20,8 +20,8 @@ Samples are ordered consistently across all tables, which makes it straightforwa
 To simplify downstream analyses, we identify samples belonging to each dataset:
 
 ```r
-DS_2013 <- grep("KTH-2013-Baltic", merged_df$events$eventID)
-DS_2019_2020 <- grep("PRJEB55296-", merged_df$events$eventID)
+DS_2013 <- grep("KTH-2013-Baltic", rownames(merged_df$events))
+DS_2019_2020 <- grep("PRJEB55296", rownames(merged_df$events))
 ```
 
 ---
