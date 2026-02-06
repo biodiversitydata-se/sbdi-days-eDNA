@@ -206,12 +206,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(merged_df<span class="sc">$</span>events<span class="sc">$</span>pcr_primer_name_reverse[DS_2013])</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(merged_df<span class="sc">$</span>events<span class="sc">$</span>pcr_primer_name_reverse[DS_2019_2020])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Different primers were used in the two datasets.</p>
+<p>Different primers were used in the two datasets!</p>
 <hr>
 </section>
 <section id="braycurtis-distances-on-genus-composition" class="level3">
 <h3 class="anchored" data-anchor-id="braycurtis-distances-on-genus-composition">Bray–Curtis distances on genus composition</h3>
-<p>Since different primers were used, ASVs will likely not be shared and calculating Bray-Curtis based on ASVs will not give meaningful information (distances will be 1 between all cross-dataset pairs). Instead we calculate it based on genus level counts.</p>
+<p>Since different primers were used, ASVs will likely not be shared and calculating Bray-Curtis based on ASVs will not give meaningful information (distances will be 1 between all cross-dataset sample pairs). Instead we calculate it based on genus-level counts.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>bray_dist <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(<span class="fu">vegdist</span>(<span class="fu">t</span>(cladecounts_df<span class="sc">$</span>norm<span class="sc">$</span>genus), <span class="at">method =</span> <span class="st">"bray"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>(Note that cladecounts$norm already provides normalised counts so we don’t need to do normalisation.)</p>
 </section>
