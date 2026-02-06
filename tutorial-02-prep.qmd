@@ -41,7 +41,7 @@ Next, we merge the datasets in order to analyse them jointly:
 merged <- merge_data(loaded)
 ```
 
-The `merged` object has the same overall structure as `loaded`, but now contains a single combined version of each matrix or table (`counts`, `events`, `asvs`, `emof`).
+The `merged` object is a list with one combined object per data type (`counts`, `events`, `asvs`, `datasets`, `emof`), represented as a sparse matrix for count data and data tables for metadata, as in `loaded`.
 
 ---
 
