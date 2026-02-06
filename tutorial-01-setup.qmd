@@ -18,11 +18,15 @@ Follow the tutorial steps and **avoid creating additional large objects**, as re
 
 ### Check required packages
 
-Load `asvoccur` and confirm version:
+All required packages are pre-installed in the workshop environment. Load them and confirm that they are available:
 
 ```r
 library(asvoccur)
-packageVersion("asvoccur")  # Should say 1.1.1
+library(ranger)
+library(vegan)
+library(ape)
+library(rworldmap)
+library(data.table)
 ```
 
 ### Check access to example data {#check-access}
@@ -44,15 +48,42 @@ You will need to install:
 
 1. [R](https://cran.r-project.org/){target="_blank"}<br>
 2. [RStudio](https://posit.co/download/rstudio-desktop/){target="_blank"}
-3. the `remotes` and `asvoccur` R packages
+3. the following R packages:
+   - `remotes`
+   - `asvoccur`
+   - `ranger`
+   - `vegan`
+   - `ape`
+   - `rworldmap`
+   - `data.table`
 
-To install the required R packages:
+To install and load the required R packages:
 
 ```r
-install.packages('remotes')
+# Install from CRAN
+install.packages(c(
+  "remotes",
+  "ranger",
+  "vegan",
+  "ape",
+  "rworldmap",
+  "data.table"
+))
+
+# Install from GitHub
 remotes::install_github("biodiversitydata-se/asvoccur")
+
+# Load
 library(asvoccur)
+library(ranger)
+library(vegan)
+library(ape)
+library(rworldmap)
+library(data.table)
+
+# Confirm version
 packageVersion("asvoccur")  # Should say 1.1.1
+
 ```
 
 ### Download example data from the ASV portal
