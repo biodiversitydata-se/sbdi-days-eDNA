@@ -15,9 +15,7 @@ Sample-level contextual information is available in `merged_df$events`:
 colnames(merged_df$events)
 ```
 
-Samples are ordered consistently across tables, which makes it straightforward to link sequence data with contextual data. Thus, `rownames(merged_df$events)`,  `rownames(merged_df$emof)` and `colnames(merged_df$emof)` are all the same. Likewise ASVs are ordered the same way in `merged_df$counts` and `merged_df$asvs`.
-
-
+Samples are ordered consistently across tables, which makes it straightforward to link sequence data with contextual data. Thus, `rownames(merged_df$events)`,  `rownames(merged_df$emof)` and `colnames(merged_df$emof)` are the same. Likewise, ASVs are ordered the same way in `merged_df$counts` and `merged_df$asvs`.
 
 To simplify downstream analyses, we identify samples belonging to each dataset:
 
@@ -167,7 +165,7 @@ We apply the function to plot the DS_2013 dataset:
 plot_map(DS_2013)
 ```
 
-And the DS_2019_2020 dataset
+And the DS_2019_2020 dataset:
 
 ```r
 plot_map(DS_2019_2020)
