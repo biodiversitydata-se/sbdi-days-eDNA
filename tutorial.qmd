@@ -5,7 +5,11 @@ format:
     toc: false
 ---
 
-This tutorial walks through the main steps needed to integrate ASV portal data in R and explore biodiversity patterns. As an example, we analyse microbial diversity along the Baltic Sea salinity gradient.
+This tutorial walks through the main steps needed to integrate ASV portal data in R and explore biodiversity patterns. As a case study, we examine microbial diversity along the Baltic Sea salinity gradient using data from two published studies (see references below).
+
+In the first study, 21 surface-water samples collected during a research cruise in summer 2013 were analyzed using 16S and 18S rRNA gene metabarcoding. In the second study, 331 surface samples (16S) and 333 surface samples (18S) were sequenced from 22 stations over a 13-month period (2019–2020).
+
+Sections 1–6 focus on the 16S data. Because the same PCR primers were used in both datasets, many ASVs are shared, enabling direct integration of the data even at the ASV level. Section 7 examines the 18S data and demonstrates how datasets can be co-analyzed even when different primers were used and no ASVs overlap.
 
 1. [Set up the environment](tutorial-01-setup.qmd) — Access the workshop RStudio environment (or run locally)
 2. [Prepare data](tutorial-02-prep.qmd) — Load, merge and aggregate data sourced from the ASV portal
