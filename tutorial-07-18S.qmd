@@ -19,40 +19,54 @@ data_path <- "/srv/course-data/18S"
 loaded <- load_data(data_path)
 ```
 
-### Merge datasets
+### Merge datasets and convert to data frames
 
 ```r
 merged <- merge_data(loaded)
-```
-
-### Convert to data frames
-
-```r
 merged_df <- convert_to_df(merged, convert_counts = TRUE, max_cells = 1e9)
 ```
 
-### Aggregate to genus
-
-We aggregate read counts by taxonomic rank and extract the genus-level table:
+### Aggregate taxa and convert to data frames
 
 ```r
 cladecounts <- sum_by_clade(merged$counts, merged$asvs)
 cladecounts_df <- convert_to_df(cladecounts)
-
-genus_counts <- cladecounts_df$raw$genus
 ```
 
-Convert to relative abundances per sample:
+### Plot data on map 
+
+We can plot the datasets on the map using the `plot_map` function defined in [3](tutorial-03-map.qmd):
 
 ```r
-genus_norm <- t(t(genus_counts) / colSums(genus_counts, na.rm = TRUE))
+plot_map(DS_2013)
+plot_map(DS_2019_2020)
 ```
+
+### Check primers
+
+```r
+unique(merged_df$events$pcr_primer_name_forward[DS_2013])
+unique(merged_df$events$pcr_primer_name_forward[DS_2019_2020])
+
+unique(merged_df$events$pcr_primer_name_reverse[DS_2013])
+unique(merged_df$events$pcr_primer_name_reverse[DS_2019_2020])
+```
+
+Different primers were used in the two datasets!
+
+---
+
 
 ### Bray–Curtis distances on genus composition
 
+Since different primers were used, ASVs will likely not be shared and calculating Bray-Curtis based on ASVs will not give meaningful information (distances will be 1 between all cross-dataset sample pairs). Instead we calculate it based on genus-level counts.
+
+
 ```r
-bray_dist <- as.matrix(vegdist(t(genus_norm), method = "bray"))
+bray_dist <- as.matrix(vegdist(t(cladecounts_df$norm$genus), method = "bray"))
 ```
+
+(Note that cladecounts$norm already provides normalised counts so we don't need to do normalisation.)
 
 ### Run PCoA
 
@@ -121,5 +135,12 @@ text(10, 1.2, "Salinity", cex = 2)
 ```
 
 ---
+
+### Make barplot
+We can reuse the `plot_barplot` function defined in [5](tutorial-05-barplots.qmd) to make taxonomic barplots. E.g.:
+
+```r
+plot_barplots(rank = 4, top_x = 8)
+```
 
 [← Previous](tutorial-06-randomforest.qmd) · [Overview](tutorial.qmd)

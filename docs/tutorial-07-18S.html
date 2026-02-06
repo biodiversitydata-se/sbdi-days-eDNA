@@ -183,27 +183,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>loaded <span class="ot">&lt;-</span> <span class="fu">load_data</span>(data_path)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="merge-datasets" class="level3">
-<h3 class="anchored" data-anchor-id="merge-datasets">Merge datasets</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>merged <span class="ot">&lt;-</span> <span class="fu">merge_data</span>(loaded)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="merge-datasets-and-convert-to-data-frames" class="level3">
+<h3 class="anchored" data-anchor-id="merge-datasets-and-convert-to-data-frames">Merge datasets and convert to data frames</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>merged <span class="ot">&lt;-</span> <span class="fu">merge_data</span>(loaded)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>merged_df <span class="ot">&lt;-</span> <span class="fu">convert_to_df</span>(merged, <span class="at">convert_counts =</span> <span class="cn">TRUE</span>, <span class="at">max_cells =</span> <span class="fl">1e9</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="convert-to-data-frames" class="level3">
-<h3 class="anchored" data-anchor-id="convert-to-data-frames">Convert to data frames</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>merged_df <span class="ot">&lt;-</span> <span class="fu">convert_to_df</span>(merged, <span class="at">convert_counts =</span> <span class="cn">TRUE</span>, <span class="at">max_cells =</span> <span class="fl">1e9</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="aggregate-taxa-and-convert-to-data-frames" class="level3">
+<h3 class="anchored" data-anchor-id="aggregate-taxa-and-convert-to-data-frames">Aggregate taxa and convert to data frames</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>cladecounts <span class="ot">&lt;-</span> <span class="fu">sum_by_clade</span>(merged<span class="sc">$</span>counts, merged<span class="sc">$</span>asvs)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>cladecounts_df <span class="ot">&lt;-</span> <span class="fu">convert_to_df</span>(cladecounts)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="aggregate-to-genus" class="level3">
-<h3 class="anchored" data-anchor-id="aggregate-to-genus">Aggregate to genus</h3>
-<p>We aggregate read counts by taxonomic rank and extract the genus-level table:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>cladecounts <span class="ot">&lt;-</span> <span class="fu">sum_by_clade</span>(merged<span class="sc">$</span>counts, merged<span class="sc">$</span>asvs)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>cladecounts_df <span class="ot">&lt;-</span> <span class="fu">convert_to_df</span>(cladecounts)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>genus_counts <span class="ot">&lt;-</span> cladecounts_df<span class="sc">$</span>raw<span class="sc">$</span>genus</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Convert to relative abundances per sample:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>genus_norm <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">t</span>(genus_counts) <span class="sc">/</span> <span class="fu">colSums</span>(genus_counts, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="plot-data-on-map" class="level3">
+<h3 class="anchored" data-anchor-id="plot-data-on-map">Plot data on map</h3>
+<p>We can plot the datasets on the map using the <code>plot_map</code> function defined in <a href="./tutorial-03-map.html">3</a>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_map</span>(DS_2013)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_map</span>(DS_2019_2020)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="check-primers" class="level3">
+<h3 class="anchored" data-anchor-id="check-primers">Check primers</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(merged_df<span class="sc">$</span>events<span class="sc">$</span>pcr_primer_name_forward[DS_2013])</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(merged_df<span class="sc">$</span>events<span class="sc">$</span>pcr_primer_name_forward[DS_2019_2020])</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(merged_df<span class="sc">$</span>events<span class="sc">$</span>pcr_primer_name_reverse[DS_2013])</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(merged_df<span class="sc">$</span>events<span class="sc">$</span>pcr_primer_name_reverse[DS_2019_2020])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Different primers were used in the two datasets.</p>
+<hr>
 </section>
 <section id="braycurtis-distances-on-genus-composition" class="level3">
 <h3 class="anchored" data-anchor-id="braycurtis-distances-on-genus-composition">Bray–Curtis distances on genus composition</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>bray_dist <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(<span class="fu">vegdist</span>(<span class="fu">t</span>(genus_norm), <span class="at">method =</span> <span class="st">"bray"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Since different primers were used, ASVs will likely not be shared and calculating Bray-Curtis based on ASVs will not give meaningful information (distances will be 1 between all cross-dataset pairs). Instead we calculate it based on genus level counts.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>bray_dist <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(<span class="fu">vegdist</span>(<span class="fu">t</span>(cladecounts_df<span class="sc">$</span>norm<span class="sc">$</span>genus), <span class="at">method =</span> <span class="st">"bray"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>(Note that cladecounts$norm already provides normalised counts so we don’t need to do normalisation.)</p>
 </section>
 <section id="run-pcoa" class="level3">
 <h3 class="anchored" data-anchor-id="run-pcoa">Run PCoA</h3>
@@ -266,6 +276,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">20</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"2"</span>, <span class="st">"18"</span>, <span class="st">"34"</span>), <span class="at">cex =</span> <span class="dv">3</span>)</span>
 <span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">10</span>, <span class="fl">1.2</span>, <span class="st">"Salinity"</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
+</section>
+<section id="make-barplot" class="level3">
+<h3 class="anchored" data-anchor-id="make-barplot">Make barplot</h3>
+<p>We can reuse the <code>plot_barplot</code> function defined in <a href="./tutorial-05-barplots.html">5</a> to make taxonomic barplots. E.g.:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_barplots</span>(<span class="at">rank =</span> <span class="dv">4</span>, <span class="at">top_x =</span> <span class="dv">8</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><a href="./tutorial-06-randomforest.html">← Previous</a> · <a href="./tutorial.html">Overview</a></p>
 
 
