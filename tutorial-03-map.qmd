@@ -55,7 +55,7 @@ yday <- yday(merged_df$events$eventDate)
 
 ### Inspect EMoF data
 
-More detailed environmental parameters are available in `merged_df$emof`:
+Additional contextual parameters are available in `merged_df$emof`. Unlike other metadata tables with fixed core columns, EMoF variables are dataset-specific and must be explicitly harmonised before analysis:
 
 ```r
 colnames(merged_df$emof)

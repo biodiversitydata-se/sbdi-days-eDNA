@@ -205,7 +205,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="inspect-emof-data" class="level3">
 <h3 class="anchored" data-anchor-id="inspect-emof-data">Inspect EMoF data</h3>
-<p>More detailed environmental parameters are available in <code>merged_df$emof</code>:</p>
+<p>Additional contextual parameters are available in <code>merged_df$emof</code>. Unlike other metadata tables with fixed core columns, EMoF variables are dataset-specific and must be explicitly harmonised before analysis:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(merged_df<span class="sc">$</span>emof)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>We now extract salinity and temperature values for all samples.</p>
 <section id="salinity" class="level4">
