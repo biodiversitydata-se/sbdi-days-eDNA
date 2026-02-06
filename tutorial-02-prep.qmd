@@ -88,11 +88,11 @@ We convert the result to data frame format:
 cladecounts_df <- convert_to_df(cladecounts)
 ```
 
-Both raw counts and normalised counts (relative abundances) are available. For example:
+Both raw counts and normalised counts (relative abundances per sample) are available. For example:
 
 ```r
-cladecounts_df$raw$phylum     # raw counts at phylum level
-cladecounts_df$norm$species  # relative abundances at species level
+View(cladecounts_df$raw$phylum)  # raw counts at phylum level
+View(cladecounts_df$norm$class)  # relative abundances at class level
 ```
 
 At this point, the data are ready for exploration and analysis.
