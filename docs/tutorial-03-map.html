@@ -178,7 +178,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="inspect-contextual-data">Inspect contextual data</h3>
 <p>Sample-level contextual information is available in <code>merged_df$events</code>:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(merged_df<span class="sc">$</span>events)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Samples are ordered consistently across all tables, which makes it straightforward to link sequence data with contextual data.</p>
+<p>Samples are ordered consistently across tables, which makes it straightforward to link sequence data with contextual data. Thus, <code>rownames(merged_df$events)</code>, <code>rownames(merged_df$emof)</code> and <code>colnames(merged_df$emof)</code> are all the same. Likewise ASVs are ordered the same way in <code>merged_df$counts</code> and <code>merged_df$asvs</code>.</p>
 <p>To simplify downstream analyses, we identify samples belonging to each dataset:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>DS_2013 <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">"KTH-2013-Baltic"</span>, <span class="fu">rownames</span>(merged_df<span class="sc">$</span>events))</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>DS_2019_2020 <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">"PRJEB55296"</span>, <span class="fu">rownames</span>(merged_df<span class="sc">$</span>events))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -192,6 +192,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(merged_df<span class="sc">$</span>events<span class="sc">$</span>pcr_primer_name_reverse[DS_2013])</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(merged_df<span class="sc">$</span>events<span class="sc">$</span>pcr_primer_name_reverse[DS_2019_2020])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This verifies that the same primers were used in the two datasets.</p>
 <hr>
 </section>
 <section id="extract-spatial-and-temporal-variables" class="level3">
@@ -205,7 +206,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="inspect-emof-data" class="level3">
 <h3 class="anchored" data-anchor-id="inspect-emof-data">Inspect EMoF data</h3>
-<p>Additional contextual parameters are available in <code>merged_df$emof</code>. Unlike other metadata tables with fixed core columns, EMoF variables are dataset-specific and must be explicitly harmonised before analysis:</p>
+<p>Additional contextual parameters are available in <code>merged_df$emof</code>. Unlike other metadata tables with fixed core columns, EMoF variables are dataset-specific and may need to be explicitly harmonised before analysis:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(merged_df<span class="sc">$</span>emof)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>We now extract salinity and temperature values for all samples.</p>
 <section id="salinity" class="level4">
@@ -286,9 +287,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">20</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"2"</span>, <span class="st">"18"</span>, <span class="st">"34"</span>), <span class="at">cex =</span> <span class="dv">3</span>)</span>
 <span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="dv">2</span>, <span class="fl">1.1</span>, <span class="st">"Salinity"</span>, <span class="at">cex =</span> <span class="fl">1.4</span>, <span class="at">adj =</span> <span class="dv">0</span>)</span>
 <span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>We apply the function to each dataset:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_map</span>(DS_2013)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_map</span>(DS_2019_2020)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>We apply the function to plot the DS_2013 dataset:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_map</span>(DS_2013)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>And the DS_2019_2020 dataset</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_map</span>(DS_2019_2020)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 <p><a href="./tutorial-02-prep.html">← Previous</a> · <a href="./tutorial.html">Overview</a> · <a href="./tutorial-04-pcoa.html">Next →</a></p>
 

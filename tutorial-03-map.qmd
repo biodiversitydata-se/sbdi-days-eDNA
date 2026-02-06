@@ -15,7 +15,9 @@ Sample-level contextual information is available in `merged_df$events`:
 colnames(merged_df$events)
 ```
 
-Samples are ordered consistently across all tables, which makes it straightforward to link sequence data with contextual data.
+Samples are ordered consistently across tables, which makes it straightforward to link sequence data with contextual data. Thus, `rownames(merged_df$events)`,  `rownames(merged_df$emof)` and `colnames(merged_df$emof)` are all the same. Likewise ASVs are ordered the same way in `merged_df$counts` and `merged_df$asvs`.
+
+
 
 To simplify downstream analyses, we identify samples belonging to each dataset:
 
@@ -38,6 +40,8 @@ unique(merged_df$events$pcr_primer_name_reverse[DS_2013])
 unique(merged_df$events$pcr_primer_name_reverse[DS_2019_2020])
 ```
 
+This verifies that the same primers were used in the two datasets.
+
 ---
 
 ### Extract spatial and temporal variables
@@ -55,7 +59,7 @@ yday <- yday(merged_df$events$eventDate)
 
 ### Inspect EMoF data
 
-Additional contextual parameters are available in `merged_df$emof`. Unlike other metadata tables with fixed core columns, EMoF variables are dataset-specific and must be explicitly harmonised before analysis:
+Additional contextual parameters are available in `merged_df$emof`. Unlike other metadata tables with fixed core columns, EMoF variables are dataset-specific and may need to be explicitly harmonised before analysis:
 
 ```r
 colnames(merged_df$emof)
@@ -157,13 +161,17 @@ plot_map <- function(dataset) {
 }
 ```
 
-We apply the function to each dataset:
+We apply the function to plot the DS_2013 dataset:
 
 ```r
 plot_map(DS_2013)
-plot_map(DS_2019_2020)
 ```
 
+And the DS_2019_2020 dataset
+
+```r
+plot_map(DS_2019_2020)
+```
 ---
 
 [← Previous](tutorial-02-prep.qmd) · [Overview](tutorial.qmd) · [Next →](tutorial-04-pcoa.qmd)
