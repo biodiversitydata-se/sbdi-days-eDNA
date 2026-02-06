@@ -24,7 +24,7 @@ y <- y[ok]
 
 ### Create a feature matrix
 
-We use relative abundances of ASVs as features (`norm_counts` created in 4). 
+We use relative abundances of ASVs as features (`norm_counts` created in [4](tutorial-04-pcoa.qmd)). 
 
 ```r
 X <- t(norm_counts) # rows = samples, cols = ASVs
