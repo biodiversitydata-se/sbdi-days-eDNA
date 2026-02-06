@@ -91,6 +91,6 @@ In this option, example data is downloaded directly from the ASV portal.
        list.files(data_path)
 ```
 
-If two (16S) zip files are listed, you are ready to proceed.
+If "KTH-2013-Baltic-16S.zip" and "PRJEB55296-16S.zip" are listed, you are ready to proceed.
 
 [Overview](tutorial.qmd) · [Next →](tutorial-02-prep.qmd)
