@@ -177,12 +177,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="normalise-counts-to-relative-abundances" class="level3">
 <h3 class="anchored" data-anchor-id="normalise-counts-to-relative-abundances">Normalise counts to relative abundances</h3>
 <p>First, convert ASV counts to relative abundances per sample:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>norm_counts <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">t</span>(merged_df<span class="sc">$</span>counts) <span class="sc">/</span> <span class="fu">colSums</span>(merged_df<span class="sc">$</span>counts, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#norm_counts[which(is.na(norm_counts))] &lt;- 0</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>norm_counts <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">t</span>(merged_df<span class="sc">$</span>counts) <span class="sc">/</span> <span class="fu">colSums</span>(merged_df<span class="sc">$</span>counts, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="calculate-braycurtis-distances" class="level3">
 <h3 class="anchored" data-anchor-id="calculate-braycurtis-distances">Calculate Bray–Curtis distances</h3>
-<p>Compute pairwise Bray–Curtis distances (beta-diversity):</p>
+<p>Compute pairwise <a href="https://en.wikipedia.org/wiki/Bray%E2%80%93Curtis_dissimilarity" target="_blank">Bray–Curtis distances</a> (beta-diversity):</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>bray_dist <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(<span class="fu">vegdist</span>(<span class="fu">t</span>(norm_counts), <span class="at">method =</span> <span class="st">"bray"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="run-pcoa" class="level3">

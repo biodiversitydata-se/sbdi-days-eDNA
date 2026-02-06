@@ -13,12 +13,11 @@ First, convert ASV counts to relative abundances per sample:
 
 ```r
 norm_counts <- t(t(merged_df$counts) / colSums(merged_df$counts, na.rm = TRUE))
-#norm_counts[which(is.na(norm_counts))] <- 0
 ```
 
 ### Calculate Bray–Curtis distances
 
-Compute pairwise Bray–Curtis distances (beta-diversity):
+Compute pairwise [Bray–Curtis distances](https://en.wikipedia.org/wiki/Bray%E2%80%93Curtis_dissimilarity){target="_blank"} (beta-diversity):
 
 ```r
 bray_dist <- as.matrix(vegdist(t(norm_counts), method = "bray"))
