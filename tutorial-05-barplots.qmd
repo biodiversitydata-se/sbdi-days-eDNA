@@ -9,7 +9,7 @@ format:
 
 ### Define the barplot function
 
-The function below aggregates monthly averages within salinity intervals and plots stacked barplots for the top taxa.
+The function below aggregates monthly averages within salinity intervals (roughly corresponding to the basins Bothnian Bay, Bothnian Sea, Baltic Proper, Kattegat and Skagerrak) and plots stacked barplots for the top taxa.
 
 ```r
 plot_barplots <- function(rank, size_taxa = -1, main = "", top_x = 10) {
@@ -56,7 +56,7 @@ Plot the 8 most abundant classes:
 plot_barplots(rank = 3, top_x = 8)
 ```
 
-This will create five stacked barplot rows (one per salinity interval), each showing monthly averages for the selected taxa.
+This will create five stacked barplot rows (one per salinity interval), each showing monthly averages for the selected taxa. You can also adjust the size of the taxa legend with the `size_taxa` parameter.
 
 ---
 

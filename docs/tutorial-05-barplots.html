@@ -176,7 +176,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><em>Summarise taxonomic composition across salinity gradients and seasons using stacked barplots.</em></p>
 <section id="define-the-barplot-function" class="level3">
 <h3 class="anchored" data-anchor-id="define-the-barplot-function">Define the barplot function</h3>
-<p>The function below aggregates monthly averages within salinity intervals and plots stacked barplots for the top taxa.</p>
+<p>The function below aggregates monthly averages within salinity intervals (roughly corresponding to the basins Bothnian Bay, Bothnian Sea, Baltic Proper, Kattegat and Skagerrak) and plots stacked barplots for the top taxa.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>plot_barplots <span class="ot">&lt;-</span> <span class="cf">function</span>(rank, <span class="at">size_taxa =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">main =</span> <span class="st">""</span>, <span class="at">top_x =</span> <span class="dv">10</span>) {</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  mycols <span class="ot">&lt;-</span> <span class="fu">colorRampPalette</span>(<span class="fu">c</span>(</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"#a6cee3"</span>, <span class="st">"#1f78b4"</span>, <span class="st">"#b2df8a"</span>, <span class="st">"#33a02c"</span>,</span>
@@ -214,7 +214,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="example-plot-top-classes">Example: plot top classes</h3>
 <p>Plot the 8 most abundant classes:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_barplots</span>(<span class="at">rank =</span> <span class="dv">3</span>, <span class="at">top_x =</span> <span class="dv">8</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This will create five stacked barplot rows (one per salinity interval), each showing monthly averages for the selected taxa.</p>
+<p>This will create five stacked barplot rows (one per salinity interval), each showing monthly averages for the selected taxa. You can also adjust the size of the taxa legend with the <code>size_taxa</code> parameter.</p>
 <hr>
 <p><a href="./tutorial-04-pcoa.html">← Previous</a> · <a href="./tutorial.html">Overview</a> · <a href="./tutorial-06-randomforest.html">Next →</a></p>
 
