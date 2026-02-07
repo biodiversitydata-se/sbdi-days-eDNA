@@ -63,26 +63,13 @@ Additional contextual variables are available in `merged_df$emof`. Unlike fields
 colnames(merged_df$emof)
 ```
 
-We now extract salinity and temperature for all samples. Because these variables are recorded differently in the two datasets, values are taken from different columns, and temperature for the 2019–2020 dataset is calculated as a mean across multiple depths.
-
 #### Salinity
+We now extract salinity for all samples. Because these variables are recorded differently in the two datasets, values are taken from different columns.
 
 ```r
 salinity <- rep(NA, nrow(merged_df$emof))
 salinity[DS_2013] <- as.numeric(merged_df$emof$`salinity (psu)`[DS_2013])
 salinity[DS_2019_2020] <- as.numeric(merged_df$emof$`salinity_average (psu)`[DS_2019_2020])
-```
-
-#### Temperature
-
-```r
-temperature <- rep(NA, nrow(merged_df$emof))
-temperature[DS_2013] <- as.numeric(merged_df$emof$`temperature (°C)`[DS_2013])
-temperature[DS_2019_2020] <- rowMeans(cbind(
-  as.numeric(merged_df$emof$`temperature_water_CTD_0-1m (°C)`[DS_2019_2020]),
-  as.numeric(merged_df$emof$`temperature_water_CTD_5m (°C)`[DS_2019_2020]),
-  as.numeric(merged_df$emof$`temperature_water_CTD_10m (°C)`[DS_2019_2020])
-))
 ```
 
 ---
