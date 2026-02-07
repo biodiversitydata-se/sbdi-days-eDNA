@@ -25,7 +25,7 @@ bray_dist <- as.matrix(vegdist(t(norm_counts), method = "bray"))
 
 ### Run PCoA
 
-Perform Principal Coordinates Analysis on the distance matrix:
+Perform [Principal Coordinates Analysis](https://www.geeksforgeeks.org/machine-learning/principal-coordinates-analysis-pcoa-a-comprehensive-guide/){target="_blank"} on the distance matrix:
 
 ```r
 pcoa <- pcoa(bray_dist, correction = "cailliez")
