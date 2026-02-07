@@ -194,6 +194,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="traintest-split" class="level3">
 <h3 class="anchored" data-anchor-id="traintest-split">Train/test split</h3>
+<p>Split the data into training and test sets to evaluate model performance on unseen samples.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(X)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>train_ix <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">seq_len</span>(n), <span class="at">size =</span> <span class="fu">round</span>(<span class="fl">0.8</span> <span class="sc">*</span> n))</span>
@@ -217,6 +218,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="predict-and-evaluate" class="level3">
 <h3 class="anchored" data-anchor-id="predict-and-evaluate">Predict and evaluate</h3>
+<p>Assess model performance by predicting the environmental parameter for the test data.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(rf, <span class="at">data =</span> X_test)<span class="sc">$</span>predictions</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Coefficient of determination</span></span>
@@ -229,6 +231,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="plot-observed-vs-predicted" class="level3">
 <h3 class="anchored" data-anchor-id="plot-observed-vs-predicted">Plot observed vs predicted</h3>
+<p>Visualize how well predicted values match observed values in the test set.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">2</span>,<span class="dv">2</span>), <span class="at">xpd =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>lims <span class="ot">&lt;-</span> <span class="fu">range</span>(<span class="fu">c</span>(y_test, pred))</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y_test, pred,</span>
@@ -240,6 +243,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="variable-importance-optional" class="level3">
 <h3 class="anchored" data-anchor-id="variable-importance-optional">Variable importance (optional)</h3>
+<p>Identify which ASVs contribute most to the model’s predictions.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>imp <span class="ot">&lt;-</span> <span class="fu">sort</span>(rf<span class="sc">$</span>variable.importance, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(imp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>To get the taxonomy of the 10 ASVs with highest importance for the model:</p>
