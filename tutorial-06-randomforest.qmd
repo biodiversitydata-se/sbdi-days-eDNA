@@ -61,7 +61,7 @@ y_test <- y[test_ix]
 
 ### Train Random Forest
 
-We train a random forest model using the R package ranger.
+We train a [random forest model](https://www.geeksforgeeks.org/r-language/random-forest-approach-in-r-programming/){target="_blank"} using the R package ranger.
 
 ```r
 rf <- ranger(
