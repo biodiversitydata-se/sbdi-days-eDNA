@@ -176,9 +176,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><em>Explore the spatial and seasonal distribution of samples and inspect associated environmental data.</em></p>
 <section id="inspect-contextual-data" class="level3">
 <h3 class="anchored" data-anchor-id="inspect-contextual-data">Inspect contextual data</h3>
-<p>Sample-level contextual information is available in <code>merged_df$events</code>:</p>
+<p>Core sample-level metadata is available in <code>merged_df$events</code>:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(merged_df<span class="sc">$</span>events)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Samples are ordered consistently across tables, which makes it straightforward to link sequence data with contextual data. Thus, <code>rownames(merged_df$events)</code>, <code>rownames(merged_df$emof)</code> and <code>colnames(merged_df$emof)</code> are the same. Likewise, ASVs are ordered the same way in <code>merged_df$counts</code> and <code>merged_df$asvs</code>.</p>
+<p>Samples are ordered consistently across tables, which makes it straightforward to link sequence data with contextual data. Thus, <code>rownames(merged_df$events)</code>, <code>rownames(merged_df$emof)</code> and <code>colnames(merged_df$emof)</code> are the same. Likewise, ASVs are ordered consistently between <code>merged_df$counts</code> and <code>merged_df$asvs</code>.</p>
 <p>To simplify downstream analyses, we identify samples belonging to each dataset:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>DS_2013 <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">"KTH-2013-Baltic"</span>, <span class="fu">rownames</span>(merged_df<span class="sc">$</span>events))</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>DS_2019_2020 <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">"PRJEB55296"</span>, <span class="fu">rownames</span>(merged_df<span class="sc">$</span>events))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -206,9 +206,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="inspect-emof-data" class="level3">
 <h3 class="anchored" data-anchor-id="inspect-emof-data">Inspect EMoF data</h3>
-<p>Additional contextual parameters are available in <code>merged_df$emof</code>. Unlike other metadata tables with fixed core columns, EMoF variables are dataset-specific and may need to be explicitly harmonised before analysis:</p>
+<p>Additional contextual variables are available in <code>merged_df$emof</code>. Unlike fields in other metadata tables, EMoF variables are dataset-specific, meaning that the same variable may be stored under different column names. These variables therefore need to be identified and harmonised before analysis. We start by inspecting the column names:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(merged_df<span class="sc">$</span>emof)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>We now extract salinity and temperature values for all samples.</p>
+<p>We now extract salinity and temperature for all samples. Because these variables are recorded differently in the two datasets, values are taken from different columns, and temperature for the 2019–2020 dataset is calculated as a mean across multiple depths.</p>
 <section id="salinity" class="level4">
 <h4 class="anchored" data-anchor-id="salinity">Salinity</h4>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>salinity <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="fu">nrow</span>(merged_df<span class="sc">$</span>emof))</span>

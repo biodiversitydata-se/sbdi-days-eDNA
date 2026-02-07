@@ -9,13 +9,13 @@ format:
 
 ### Inspect contextual data
 
-Sample-level contextual information is available in `merged_df$events`:
+Core sample-level metadata is available in `merged_df$events`:
 
 ```r
 colnames(merged_df$events)
 ```
 
-Samples are ordered consistently across tables, which makes it straightforward to link sequence data with contextual data. Thus, `rownames(merged_df$events)`,  `rownames(merged_df$emof)` and `colnames(merged_df$emof)` are the same. Likewise, ASVs are ordered the same way in `merged_df$counts` and `merged_df$asvs`.
+Samples are ordered consistently across tables, which makes it straightforward to link sequence data with contextual data. Thus, `rownames(merged_df$events)`,  `rownames(merged_df$emof)` and `colnames(merged_df$emof)` are the same. Likewise, ASVs are ordered consistently between `merged_df$counts` and `merged_df$asvs`.
 
 To simplify downstream analyses, we identify samples belonging to each dataset:
 
@@ -57,13 +57,13 @@ yday <- yday(merged_df$events$eventDate)
 
 ### Inspect EMoF data
 
-Additional contextual parameters are available in `merged_df$emof`. Unlike other metadata tables with fixed core columns, EMoF variables are dataset-specific and may need to be explicitly harmonised before analysis:
+Additional contextual variables are available in `merged_df$emof`. Unlike fields in other metadata tables, EMoF variables are dataset-specific, meaning that the same variable may be stored under different column names. These variables therefore need to be identified and harmonised before analysis. We start by inspecting the column names:
 
 ```r
 colnames(merged_df$emof)
 ```
 
-We now extract salinity and temperature values for all samples.
+We now extract salinity and temperature for all samples. Because these variables are recorded differently in the two datasets, values are taken from different columns, and temperature for the 2019–2020 dataset is calculated as a mean across multiple depths.
 
 #### Salinity
 
