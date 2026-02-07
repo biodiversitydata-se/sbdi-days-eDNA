@@ -38,6 +38,29 @@ cladecounts_df <- convert_to_df(cladecounts)
 We can plot the datasets on the map using the `plot_map` function defined in [3](tutorial-03-map.qmd):
 
 ```r
+# Identify datasets
+DS_2013 <- grep("KTH-2013-Baltic", rownames(merged_df$events))
+DS_2019_2020 <- grep("PRJEB55296", rownames(merged_df$events))
+
+# Extract season/salinity again (adjust column names if needed)
+lat <- merged_df$events$decimalLatitude
+lon <- merged_df$events$decimalLongitude
+month <- month(merged_df$events$eventDate)
+yday <- yday(merged_df$events$eventDate)
+
+salinity <- rep(NA, nrow(merged_df$emof))
+salinity[DS_2013] <- as.numeric(merged_df$emof$`salinity (psu)`[DS_2013])
+salinity[DS_2019_2020] <- as.numeric(merged_df$emof$`salinity_average (psu)`[DS_2019_2020])
+
+# Set plotting symbols & colour scale
+pch <- rep(NA, nrow(merged_df$events))
+pch[DS_2013] <- 21
+pch[DS_2019_2020] <- 22
+
+color_yday <- colorRampPalette(
+  c("#2c7fb8", "#addd8e", "#edf8b1", "#fa9fb5", "#2c7fb8")
+)(366)
+
 plot_map(DS_2013)
 plot_map(DS_2019_2020)
 ```
@@ -61,7 +84,6 @@ Different primers were used in the two datasets!
 
 Since different primers were used, ASVs will likely not be shared and calculating Bray-Curtis based on ASVs will not give meaningful information (distances will be 1 between all cross-dataset sample pairs). Instead we calculate it based on genus-level counts.
 
-
 ```r
 bray_dist <- as.matrix(vegdist(t(cladecounts_df$norm$genus), method = "bray"))
 ```
@@ -79,27 +101,6 @@ pcoa <- pcoa(bray_dist, correction = "cailliez")
 This plot uses the same encoding as in the 16S PCoA section.
 
 ```r
-# Identify datasets (adjust patterns if needed)
-DS_2013 <- grep("KTH-2013-Baltic", merged_df$events$eventID)
-DS_2019_2020 <- grep("PRJEB55296-", merged_df$events$eventID)
-
-# Extract season/salinity again (adjust column names if needed)
-lat <- merged_df$events$decimalLatitude
-lon <- merged_df$events$decimalLongitude
-month <- month(merged_df$events$eventDate)
-yday <- yday(merged_df$events$eventDate)
-
-salinity <- rep(NA, nrow(merged_df$emof))
-salinity[DS_2013] <- as.numeric(merged_df$emof$`salinity (psu)`[DS_2013])
-salinity[DS_2019_2020] <- as.numeric(merged_df$emof$`salinity_average (psu)`[DS_2019_2020])
-
-pch <- rep(NA, nrow(merged_df$events))
-pch[DS_2013] <- 21
-pch[DS_2019_2020] <- 22
-
-color_yday <- colorRampPalette(
-  c("#2c7fb8", "#addd8e", "#edf8b1", "#fa9fb5", "#2c7fb8")
-)(366)
 
 layout(matrix(c(1,1,1,1,2,2,2,2,3,4), 5, 2, byrow = TRUE))
 par(mar = c(5, 5, 1, 1), xpd = TRUE, cex.axis = 1)
