@@ -109,7 +109,7 @@ color_yday <- colorRampPalette(
 
 ### Map samples
 
-We define a function for plotting samples by month:
+We define a function that plots monthly maps of the study area, showing where and when samples were collected, with point colour indicating sampling date and point size indicating salinity.
 
 ```r
 plot_map <- function(dataset) {
