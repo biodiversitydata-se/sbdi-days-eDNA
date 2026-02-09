@@ -16,6 +16,9 @@ data_path <- "/srv/course-data/18S"
 # or, for data downloaded in Option B:
 # data_path <- "local/path/to/course-data/18S"
 
+list.files(data_path)
+# this should list "KTH-2013-Baltic-18S.zip" and "PRJEB55296-18S.zip"
+
 loaded <- load_data(data_path)
 ```
 
