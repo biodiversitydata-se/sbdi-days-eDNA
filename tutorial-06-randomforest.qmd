@@ -7,7 +7,7 @@ format:
 
 *Use Random Forest models to predict environmental parameters from community composition data.*
 
-Here we will use machine-learning to predict environmental parameters from community composition data. If you think this is interesting and want to learn more, check out the poster "The marine microbiome can accurately predict its chemical and biological environment" by Karin Garefelt, Emma Bell, Krzysztof Jurdzinski et al, or read the preprint  [bioRxiv](https://doi.org/10.64898/2026.01.25.701552){target="_blank"}.
+Here we will use machine-learning to predict environmental parameters from community composition data. If you think this is interesting and want to learn more, check out the poster **The marine microbiome can accurately predict its chemical and biological environment** by Emma Bell, Karin Garefelt, Krzysztof Jurdzinski et al. here at the SBDI days, or read the [preprint](https://doi.org/10.64898/2026.01.25.701552){target="_blank"}.
 
 ### Choose target variable
 
